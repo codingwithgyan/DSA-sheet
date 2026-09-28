@@ -9,397 +9,435 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #F2F3EF;
-    --paper-raised: #FFFFFF;
-    --ink: #17233D;
-    --ink-soft: #4A5670;
-    --ink-faint: #8791A3;
-    --line: #DADFE0;
-    --pine: #1F6F6B;
-    --pine-soft: #E4F0EE;
-    --ochre: #C77D2E;
-    --ochre-soft: #FBEEDD;
-    --done: #3D7A4E;
-    --done-soft: #E6F1E7;
-    --danger: #B4483A;
-    --radius: 3px;
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --paper: #F2F3EF; --paper-raised: #FFFFFF; --ink: #17233D; --ink-soft: #4A5670;
+    --ink-faint: #8791A3; --line: #DADFE0; --pine: #1F6F6B; --pine-soft: #E4F0EE;
+    --ochre: #C77D2E; --ochre-soft: #FBEEDD; --done: #3D7A4E; --done-soft: #E6F1E7;
+    --danger: #B4483A; --easy: #3D7A4E; --easy-soft: #E6F1E7; --medium: #B8862F; --medium-soft: #FBF1DC;
+    --hard: #B4483A; --hard-soft: #FBE7E4; --radius: 4px;
+    box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --paper: #12161F; --paper-raised: #1A2030; --ink: #E8EAF0; --ink-soft: #ACB4C4;
       --ink-faint: #6C7488; --line: #2A3142; --pine: #5CBDB5; --pine-soft: #17302E;
       --ochre: #E0A15B; --ochre-soft: #2E2417; --done: #7DC08E; --done-soft: #1B2E1F;
-      --danger: #E08277;
+      --danger: #E08277; --easy: #7DC08E; --easy-soft: #1B2E1F; --medium: #E0B15B; --medium-soft: #2E2717;
+      --hard: #E08277; --hard-soft: #2E1D1B;
     }
   }
   :root[data-theme="dark"] {
     --paper: #12161F; --paper-raised: #1A2030; --ink: #E8EAF0; --ink-soft: #ACB4C4;
     --ink-faint: #6C7488; --line: #2A3142; --pine: #5CBDB5; --pine-soft: #17302E;
     --ochre: #E0A15B; --ochre-soft: #2E2417; --done: #7DC08E; --done-soft: #1B2E1F;
-    --danger: #E08277;
+    --danger: #E08277; --easy: #7DC08E; --easy-soft: #1B2E1F; --medium: #E0B15B; --medium-soft: #2E2717;
+    --hard: #E08277; --hard-soft: #2E1D1B;
   }
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--paper); color: var(--ink);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    -webkit-font-smoothing: antialiased; min-height: 100%;
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100%; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 28px 16px 90px; }
+
+  header.hero { margin-bottom: 18px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--pine); margin-bottom: 6px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 5vw, 28px); font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin: 16px 0; }
+  .stat { background: var(--paper-raised); padding: 11px 10px; }
+  .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600; }
+  .stat-label { font-size: 11px; color: var(--ink-faint); margin-top: 2px; }
+
+  .nav-bar { display: flex; align-items: center; gap: 8px; margin: 18px 0 6px; }
+  .nav-btn {
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: var(--ink);
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 14px; cursor: pointer; flex-shrink: 0;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 18px 100px; }
+  .nav-btn:hover { border-color: var(--pine); color: var(--pine); }
+  .nav-btn:disabled { opacity: 0.35; cursor: default; }
+  .nav-btn:disabled:hover { border-color: var(--line); color: var(--ink); }
+  .nav-position { flex: 1; text-align: center; }
+  .nav-position .wk { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--ink-faint); }
+  .nav-position .day-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; margin-top: 1px; }
 
-  header.hero { margin-bottom: 24px; }
-  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--pine); margin-bottom: 8px; }
-  h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 5vw, 32px); font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
-  .sub { color: var(--ink-soft); font-size: 14.5px; line-height: 1.55; max-width: 58ch; margin: 0; }
+  .jump-row { display: flex; gap: 8px; justify-content: center; margin: 8px 0 4px; }
+  .jump-row select {
+    font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--ink-soft); background: var(--paper-raised);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 5px 7px;
+  }
 
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line);
-    border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin: 22px 0 4px; }
-  .stat { background: var(--paper-raised); padding: 13px 12px; }
-  .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 19px; font-weight: 600; }
-  .stat-label { font-size: 11.5px; color: var(--ink-faint); margin-top: 3px; }
-
-  .progress-track { height: 5px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 16px 0 6px; }
+  .progress-track { height: 5px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 14px 0 4px; }
   .progress-fill { height: 100%; background: var(--ochre); width: 0%; transition: width .4s ease; }
-  .progress-caption { font-size: 12px; color: var(--ink-faint); }
+  .progress-caption { font-size: 11.5px; color: var(--ink-faint); text-align: center; }
 
-  .toolbar { display: flex; justify-content: flex-end; margin: 16px 0 4px; }
-  .ghost-btn {
-    font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--ink-faint);
-    background: none; border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 6px 11px; cursor: pointer;
-  }
-  .ghost-btn:hover { color: var(--ink); border-color: var(--ink-faint); }
+  .day-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); margin-top: 18px; overflow: hidden; }
+  .day-card-head { padding: 13px 15px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .day-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; }
+  .day-card-sub { font-size: 11.5px; color: var(--ink-faint); }
 
-  .weeks { margin-top: 20px; }
-  .week { border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 9px; background: var(--paper-raised); overflow: hidden; }
-  .week-head { display: flex; align-items: center; gap: 12px; padding: 13px 14px; cursor: pointer; user-select: none; }
-  .week-head:focus-visible { outline: 2px solid var(--pine); outline-offset: -2px; }
-  .week-num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); width: 44px; flex-shrink: 0; }
-  .week-title-wrap { flex: 1; min-width: 0; }
-  .week-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; line-height: 1.3; }
-  .week-meta { font-size: 12px; color: var(--ink-faint); margin-top: 2px; display: flex; gap: 8px; align-items: center; }
-  .flag-pill { color: var(--ochre); }
-  .week-ring { width: 30px; height: 30px; flex-shrink: 0; }
-  .week-ring svg { transform: rotate(-90deg); }
-  .week-ring circle.bg { stroke: var(--line); }
-  .week-ring circle.fg { stroke: var(--pine); transition: stroke-dashoffset .4s ease; }
-  .week-chevron { font-size: 12px; color: var(--ink-faint); transition: transform .2s ease; flex-shrink: 0; }
-  .week.open .week-chevron { transform: rotate(90deg); }
-  .week-body { display: none; border-top: 1px solid var(--line); }
-  .week.open .week-body { display: block; }
-
-  .day-tabs { display: flex; gap: 2px; padding: 10px 12px 0; overflow-x: auto; }
-  .day-tab {
-    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--ink-faint);
-    background: none; border: none; border-bottom: 2px solid transparent;
-    padding: 7px 9px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
-  }
-  .day-tab.active { color: var(--pine); border-bottom-color: var(--pine); }
-  .day-tab.review.active { color: var(--ochre); border-bottom-color: var(--ochre); }
-  .day-tab .dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--done); margin-left: 5px; vertical-align: middle; }
-
-  .day-panel { padding: 6px 0 12px; }
-  .day-panel.hidden { display: none; }
-
-  .qrow { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--line); }
+  .qrow { padding: 12px 15px; border-bottom: 1px solid var(--line); }
   .qrow:last-child { border-bottom: none; }
   .qrow.done { background: var(--done-soft); }
   .qrow.flagged:not(.done) { background: var(--ochre-soft); }
 
+  .qrow-top { display: flex; align-items: flex-start; gap: 9px; }
   .q-check {
-    appearance: none; -webkit-appearance: none; width: 18px; height: 18px;
-    border: 1.5px solid var(--ink-faint); border-radius: 4px; margin-top: 2px;
-    flex-shrink: 0; cursor: pointer; position: relative; background: var(--paper-raised);
+    appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border: 1.5px solid var(--ink-faint);
+    border-radius: 4px; margin-top: 2px; flex-shrink: 0; cursor: pointer; position: relative; background: var(--paper-raised);
   }
   .q-check:checked { background: var(--done); border-color: var(--done); }
-  .q-check:checked::after {
-    content: ""; position: absolute; left: 5px; top: 1px; width: 4px; height: 9px;
-    border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg);
-  }
+  .q-check:checked::after { content: ""; position: absolute; left: 5px; top: 1px; width: 4px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
   .q-check:focus-visible { outline: 2px solid var(--pine); outline-offset: 2px; }
 
+  .diff-badge { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; padding: 2px 6px; border-radius: 3px; flex-shrink: 0; margin-top: 1px; }
+  .diff-badge.E { color: var(--easy); background: var(--easy-soft); }
+  .diff-badge.M { color: var(--medium); background: var(--medium-soft); }
+  .diff-badge.H { color: var(--hard); background: var(--hard-soft); }
+
   .q-info { flex: 1; min-width: 0; }
-  .q-name { font-size: 14px; line-height: 1.4; }
-  .q-name a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .q-name a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.4; }
   .q-name a:hover { border-bottom-color: var(--ink-faint); }
   .qrow.done .q-name a { color: var(--ink-soft); text-decoration: line-through; text-decoration-color: var(--line); border-bottom-color: transparent; }
 
-  .q-actions { display: flex; gap: 2px; flex-shrink: 0; }
-  .icon-btn {
-    background: none; border: none; cursor: pointer; padding: 4px 5px; font-size: 14px;
-    color: var(--ink-faint); border-radius: var(--radius); line-height: 1;
-  }
+  .q-actions { display: flex; gap: 1px; flex-shrink: 0; }
+  .icon-btn { background: none; border: none; cursor: pointer; padding: 4px 5px; font-size: 14px; color: var(--ink-faint); border-radius: var(--radius); line-height: 1; }
   .icon-btn:hover { color: var(--ink); background: var(--paper); }
   .icon-btn.on { color: var(--ochre); }
   .icon-btn.danger:hover { color: var(--danger); }
 
+  .q-timer-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-left: 27px; }
+  .timer-display { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--ink-soft); min-width: 52px; }
+  .timer-display.running { color: var(--pine); }
+  .timer-btn {
+    font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--ink-soft); background: var(--paper);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 3px 8px; cursor: pointer;
+  }
+  .timer-btn:hover { border-color: var(--pine); color: var(--pine); }
+  .timer-btn.reset:hover { border-color: var(--danger); color: var(--danger); }
+
   .q-edit-form { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-  .q-edit-form input {
-    font-family: 'Inter', sans-serif; font-size: 13px; padding: 6px 8px;
-    border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); color: var(--ink);
+  .q-edit-form input, .q-edit-form select {
+    font-family: 'Inter', sans-serif; font-size: 13px; padding: 6px 8px; border: 1px solid var(--line);
+    border-radius: var(--radius); background: var(--paper); color: var(--ink);
   }
   .q-edit-actions { display: flex; gap: 6px; }
-  .q-edit-actions button {
-    font-family: 'Inter', sans-serif; font-size: 12px; padding: 5px 10px; border-radius: var(--radius);
-    cursor: pointer; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink);
-  }
+  .q-edit-actions button { font-family: 'Inter', sans-serif; font-size: 12px; padding: 5px 10px; border-radius: var(--radius); cursor: pointer; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); }
   .q-edit-actions button.primary { background: var(--pine); color: white; border-color: var(--pine); }
 
-  .add-row { padding: 10px 14px; }
-  .add-btn {
-    font-family: 'Inter', sans-serif; font-size: 13px; color: var(--pine); background: none;
-    border: 1px dashed var(--line); border-radius: var(--radius); padding: 7px 12px; cursor: pointer; width: 100%; text-align: left;
-  }
+  .add-row { padding: 10px 15px; }
+  .add-btn { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--pine); background: none; border: 1px dashed var(--line); border-radius: var(--radius); padding: 7px 12px; cursor: pointer; width: 100%; text-align: left; }
   .add-btn:hover { border-color: var(--pine); background: var(--pine-soft); }
 
-  .review-empty { padding: 20px 14px; font-size: 13.5px; color: var(--ink-faint); line-height: 1.6; }
-  .review-note { padding: 8px 14px 2px; font-size: 12px; color: var(--ink-faint); }
+  .review-empty { padding: 20px 15px; font-size: 13.5px; color: var(--ink-faint); line-height: 1.6; }
+  .review-note { padding: 10px 15px 2px; font-size: 12px; color: var(--ink-faint); }
 
-  footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-faint); line-height: 1.6; }
+  .toolbar { display: flex; justify-content: center; margin: 22px 0 0; }
+  .ghost-btn { font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--ink-faint); background: none; border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px; cursor: pointer; }
+  .ghost-btn:hover { color: var(--ink); border-color: var(--ink-faint); }
+
+  footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-faint); line-height: 1.6; text-align: center; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">16 weeks · 6 days + review</div>
+    <div class="eyebrow">16 weeks · 5 questions/day · timed</div>
     <h1>DSA Tracker</h1>
-    <p class="sub">Tick a question off once solved. Flag anything that gave you trouble — it shows up on that week's Review day so you actually go back to it. Edit or swap any question for another LeetCode problem any time.</p>
   </header>
 
   <div class="stats">
-    <div class="stat"><div class="stat-num" id="statDone">0 / 0</div><div class="stat-label">questions solved</div></div>
-    <div class="stat"><div class="stat-num" id="statFlag">0</div><div class="stat-label">flagged for review</div></div>
-    <div class="stat"><div class="stat-num" id="statWeeks">0 / 16</div><div class="stat-label">weeks cleared</div></div>
+    <div class="stat"><div class="stat-num" id="statDone">0 / 0</div><div class="stat-label">solved</div></div>
+    <div class="stat"><div class="stat-num" id="statFlag">0</div><div class="stat-label">flagged</div></div>
+    <div class="stat"><div class="stat-num" id="statTime">0h</div><div class="stat-label">time logged</div></div>
   </div>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
   <div class="progress-caption" id="progressCaption">0% complete</div>
 
+  <div class="nav-bar">
+    <button class="nav-btn" id="prevBtn">&larr; Prev</button>
+    <div class="nav-position"><div class="wk" id="navWeekLabel">Week 1</div><div class="day-title" id="navDayLabel">Day 1</div></div>
+    <button class="nav-btn" id="nextBtn">Next &rarr;</button>
+  </div>
+  <div class="jump-row">
+    <select id="jumpWeek"></select>
+    <select id="jumpDay"></select>
+  </div>
+
+  <div class="day-card" id="dayCard"></div>
+
   <div class="toolbar"><button class="ghost-btn" id="resetBtn">Reset all progress</button></div>
 
-  <div class="weeks" id="weeksContainer"></div>
-
-  <footer>Review day auto-collects everything you flagged across that week's six days. Editing a question only changes what's shown here — it doesn't touch the LeetCode link itself, so you can swap in any problem you'd rather practice.</footer>
+  <footer>Star a question you struggled with — it collects automatically on that week's Review day. Timers run while a question is in progress and pause themselves once you check it off.</footer>
 </div>
 
 <script>
-const DAY_LABELS = ["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6"];
+const DAY_LABELS = ["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Review"];
 
-// [name, url] pairs per day, per week
+// [name, url, difficulty] per question, grouped by day (0-5), grouped by week
 const RAW_WEEKS = [
 { title: "Arrays, Two Pointers, Prefix Sum, Kadane's", days: [
-  [["Two Sum","https://leetcode.com/problems/two-sum/"],["Two Sum II - Input Array Is Sorted","https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"],["3Sum","https://leetcode.com/problems/3sum/"]],
-  [["4Sum","https://leetcode.com/problems/4sum/"],["Remove Duplicates from Sorted Array","https://leetcode.com/problems/remove-duplicates-from-sorted-array/"],["Move Zeroes","https://leetcode.com/problems/move-zeroes/"]],
-  [["Container With Most Water","https://leetcode.com/problems/container-with-most-water/"],["Trapping Rain Water","https://leetcode.com/problems/trapping-rain-water/"],["Maximum Subarray","https://leetcode.com/problems/maximum-subarray/"]],
-  [["Best Time to Buy and Sell Stock","https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"],["Rotate Array","https://leetcode.com/problems/rotate-array/"],["Product of Array Except Self","https://leetcode.com/problems/product-of-array-except-self/"]],
-  [["Merge Intervals","https://leetcode.com/problems/merge-intervals/"],["Insert Interval","https://leetcode.com/problems/insert-interval/"],["Subarray Sum Equals K","https://leetcode.com/problems/subarray-sum-equals-k/"]],
-  [["Next Permutation","https://leetcode.com/problems/next-permutation/"],["Sort Colors","https://leetcode.com/problems/sort-colors/"],["Find All Duplicates in an Array","https://leetcode.com/problems/find-all-duplicates-in-an-array/"]],
+  [["Two Sum","https://leetcode.com/problems/two-sum/","E"],["Two Sum II - Input Array Is Sorted","https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/","M"],["3Sum","https://leetcode.com/problems/3sum/","M"],["3Sum Closest","https://leetcode.com/problems/3sum-closest/","M"],["4Sum","https://leetcode.com/problems/4sum/","M"]],
+  [["Remove Duplicates from Sorted Array II","https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/","M"],["Move Zeroes","https://leetcode.com/problems/move-zeroes/","E"],["Merge Sorted Array","https://leetcode.com/problems/merge-sorted-array/","E"],["Plus One","https://leetcode.com/problems/plus-one/","E"],["Squares of a Sorted Array","https://leetcode.com/problems/squares-of-a-sorted-array/","E"]],
+  [["Majority Element II","https://leetcode.com/problems/majority-element-ii/","M"],["Container With Most Water","https://leetcode.com/problems/container-with-most-water/","M"],["Trapping Rain Water","https://leetcode.com/problems/trapping-rain-water/","H"],["Maximum Subarray","https://leetcode.com/problems/maximum-subarray/","M"],["Maximum Product Subarray","https://leetcode.com/problems/maximum-product-subarray/","M"]],
+  [["Best Time to Buy and Sell Stock II","https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/","M"],["Rotate Array","https://leetcode.com/problems/rotate-array/","M"],["Product of Array Except Self","https://leetcode.com/problems/product-of-array-except-self/","M"],["Merge Intervals","https://leetcode.com/problems/merge-intervals/","M"],["Insert Interval","https://leetcode.com/problems/insert-interval/","M"]],
+  [["Subarray Sum Equals K","https://leetcode.com/problems/subarray-sum-equals-k/","M"],["Subarray Product Less Than K","https://leetcode.com/problems/subarray-product-less-than-k/","M"],["Continuous Subarray Sum","https://leetcode.com/problems/continuous-subarray-sum/","M"],["Next Permutation","https://leetcode.com/problems/next-permutation/","M"],["Next Greater Element III","https://leetcode.com/problems/next-greater-element-iii/","M"]],
+  [["Sort Colors","https://leetcode.com/problems/sort-colors/","M"],["Find All Duplicates in an Array","https://leetcode.com/problems/find-all-duplicates-in-an-array/","M"],["Find the Duplicate Number","https://leetcode.com/problems/find-the-duplicate-number/","M"],["First Missing Positive","https://leetcode.com/problems/first-missing-positive/","H"],["Candy","https://leetcode.com/problems/candy/","H"]],
 ]},
 { title: "Sliding Window + String Basics", days: [
-  [["Longest Substring Without Repeating Characters","https://leetcode.com/problems/longest-substring-without-repeating-characters/"],["Minimum Window Substring","https://leetcode.com/problems/minimum-window-substring/"],["Sliding Window Maximum","https://leetcode.com/problems/sliding-window-maximum/"]],
-  [["Permutation in String","https://leetcode.com/problems/permutation-in-string/"],["Longest Repeating Character Replacement","https://leetcode.com/problems/longest-repeating-character-replacement/"],["Fruit Into Baskets","https://leetcode.com/problems/fruit-into-baskets/"]],
-  [["Max Consecutive Ones III","https://leetcode.com/problems/max-consecutive-ones-iii/"],["Find All Anagrams in a String","https://leetcode.com/problems/find-all-anagrams-in-a-string/"],["Valid Palindrome","https://leetcode.com/problems/valid-palindrome/"]],
-  [["Valid Palindrome II","https://leetcode.com/problems/valid-palindrome-ii/"],["Longest Palindromic Substring","https://leetcode.com/problems/longest-palindromic-substring/"],["Reverse Words in a String","https://leetcode.com/problems/reverse-words-in-a-string/"]],
-  [["String Compression","https://leetcode.com/problems/string-compression/"],["Longest Common Prefix","https://leetcode.com/problems/longest-common-prefix/"]],
-  [["Zigzag Conversion","https://leetcode.com/problems/zigzag-conversion/"],["Palindromic Substrings","https://leetcode.com/problems/palindromic-substrings/"]],
+  [["Longest Substring Without Repeating Characters","https://leetcode.com/problems/longest-substring-without-repeating-characters/","M"],["Minimum Window Substring","https://leetcode.com/problems/minimum-window-substring/","H"],["Sliding Window Maximum","https://leetcode.com/problems/sliding-window-maximum/","H"],["Permutation in String","https://leetcode.com/problems/permutation-in-string/","M"],["Minimum Size Subarray Sum","https://leetcode.com/problems/minimum-size-subarray-sum/","M"]],
+  [["Longest Repeating Character Replacement","https://leetcode.com/problems/longest-repeating-character-replacement/","M"],["Fruit Into Baskets","https://leetcode.com/problems/fruit-into-baskets/","M"],["Max Consecutive Ones III","https://leetcode.com/problems/max-consecutive-ones-iii/","M"],["Find All Anagrams in a String","https://leetcode.com/problems/find-all-anagrams-in-a-string/","M"],["Repeated DNA Sequences","https://leetcode.com/problems/repeated-dna-sequences/","M"]],
+  [["Valid Palindrome","https://leetcode.com/problems/valid-palindrome/","E"],["Valid Palindrome II","https://leetcode.com/problems/valid-palindrome-ii/","E"],["Longest Palindromic Substring","https://leetcode.com/problems/longest-palindromic-substring/","M"],["Count Binary Substrings","https://leetcode.com/problems/count-binary-substrings/","E"],["Palindromic Substrings","https://leetcode.com/problems/palindromic-substrings/","M"]],
+  [["Reverse Words in a String","https://leetcode.com/problems/reverse-words-in-a-string/","M"],["String Compression","https://leetcode.com/problems/string-compression/","M"],["Longest Common Prefix","https://leetcode.com/problems/longest-common-prefix/","E"],["Reverse String","https://leetcode.com/problems/reverse-string/","E"],["Reverse Integer","https://leetcode.com/problems/reverse-integer/","M"]],
+  [["Zigzag Conversion","https://leetcode.com/problems/zigzag-conversion/","M"],["String to Integer (atoi)","https://leetcode.com/problems/string-to-integer-atoi/","M"],["Find the Index of the First Occurrence in a String","https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/","E"],["Compare Version Numbers","https://leetcode.com/problems/compare-version-numbers/","M"],["Roman to Integer","https://leetcode.com/problems/roman-to-integer/","E"]],
+  [["Integer to Roman","https://leetcode.com/problems/integer-to-roman/","M"],["Multiply Strings","https://leetcode.com/problems/multiply-strings/","M"],["Text Justification","https://leetcode.com/problems/text-justification/","H"],["Shortest Palindrome","https://leetcode.com/problems/shortest-palindrome/","H"],["Longest Happy Prefix","https://leetcode.com/problems/longest-happy-prefix/","H"]],
 ]},
 { title: "Hashing, Frequency Counting, Anagrams", days: [
-  [["Group Anagrams","https://leetcode.com/problems/group-anagrams/"],["Valid Anagram","https://leetcode.com/problems/valid-anagram/"],["First Unique Character in a String","https://leetcode.com/problems/first-unique-character-in-a-string/"]],
-  [["Ransom Note","https://leetcode.com/problems/ransom-note/"],["Isomorphic Strings","https://leetcode.com/problems/isomorphic-strings/"],["Word Pattern","https://leetcode.com/problems/word-pattern/"]],
-  [["Contains Duplicate","https://leetcode.com/problems/contains-duplicate/"],["Contains Duplicate II","https://leetcode.com/problems/contains-duplicate-ii/"],["Longest Consecutive Sequence","https://leetcode.com/problems/longest-consecutive-sequence/"]],
-  [["Top K Frequent Elements","https://leetcode.com/problems/top-k-frequent-elements/"],["Contiguous Array","https://leetcode.com/problems/contiguous-array/"]],
-  [["4Sum II","https://leetcode.com/problems/4sum-ii/"],["Design HashMap","https://leetcode.com/problems/design-hashmap/"]],
-  [["Happy Number","https://leetcode.com/problems/happy-number/"],["Sort Characters By Frequency","https://leetcode.com/problems/sort-characters-by-frequency/"]],
+  [["Group Anagrams","https://leetcode.com/problems/group-anagrams/","M"],["Valid Anagram","https://leetcode.com/problems/valid-anagram/","E"],["First Unique Character in a String","https://leetcode.com/problems/first-unique-character-in-a-string/","E"],["Ransom Note","https://leetcode.com/problems/ransom-note/","E"],["Jewels and Stones","https://leetcode.com/problems/jewels-and-stones/","E"]],
+  [["Isomorphic Strings","https://leetcode.com/problems/isomorphic-strings/","E"],["Word Pattern","https://leetcode.com/problems/word-pattern/","E"],["Contains Duplicate","https://leetcode.com/problems/contains-duplicate/","E"],["Contains Duplicate II","https://leetcode.com/problems/contains-duplicate-ii/","E"],["Number of Good Pairs","https://leetcode.com/problems/number-of-good-pairs/","E"]],
+  [["Longest Consecutive Sequence","https://leetcode.com/problems/longest-consecutive-sequence/","M"],["Top K Frequent Elements","https://leetcode.com/problems/top-k-frequent-elements/","M"],["Contiguous Array","https://leetcode.com/problems/contiguous-array/","M"],["4Sum II","https://leetcode.com/problems/4sum-ii/","M"],["Binary Subarrays With Sum","https://leetcode.com/problems/binary-subarrays-with-sum/","M"]],
+  [["Design HashMap","https://leetcode.com/problems/design-hashmap/","M"],["Design HashSet","https://leetcode.com/problems/design-hashset/","E"],["Happy Number","https://leetcode.com/problems/happy-number/","E"],["Sort Characters By Frequency","https://leetcode.com/problems/sort-characters-by-frequency/","M"],["Two Sum IV - Input is a BST","https://leetcode.com/problems/two-sum-iv-input-is-a-bst/","E"]],
+  [["Subarray Sums Divisible by K","https://leetcode.com/problems/subarray-sums-divisible-by-k/","M"],["Brick Wall","https://leetcode.com/problems/brick-wall/","M"],["Fraction to Recurring Decimal","https://leetcode.com/problems/fraction-to-recurring-decimal/","M"],["Determine if Two Strings Are Close","https://leetcode.com/problems/determine-if-two-strings-are-close/","M"],["Minimum Index Sum of Two Lists","https://leetcode.com/problems/minimum-index-sum-of-two-lists/","E"]],
+  [["Find the Difference","https://leetcode.com/problems/find-the-difference/","E"],["Unique Number of Occurrences","https://leetcode.com/problems/unique-number-of-occurrences/","E"],["Grid Illumination","https://leetcode.com/problems/grid-illumination/","H"],["Insert Delete GetRandom O(1) - Duplicates allowed","https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/","H"],["Max Points on a Line","https://leetcode.com/problems/max-points-on-a-line/","H"]],
 ]},
 { title: "Matrix + Mixed Array/String", days: [
-  [["Rotate Image","https://leetcode.com/problems/rotate-image/"],["Spiral Matrix","https://leetcode.com/problems/spiral-matrix/"],["Spiral Matrix II","https://leetcode.com/problems/spiral-matrix-ii/"]],
-  [["Search a 2D Matrix","https://leetcode.com/problems/search-a-2d-matrix/"],["Search a 2D Matrix II","https://leetcode.com/problems/search-a-2d-matrix-ii/"],["Diagonal Traverse","https://leetcode.com/problems/diagonal-traverse/"]],
-  [["Valid Sudoku","https://leetcode.com/problems/valid-sudoku/"],["Game of Life","https://leetcode.com/problems/game-of-life/"]],
-  [["Transpose Matrix","https://leetcode.com/problems/transpose-matrix/"],["Flood Fill","https://leetcode.com/problems/flood-fill/"]],
-  [["Kth Smallest Element in a Sorted Matrix","https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/"],["Toeplitz Matrix","https://leetcode.com/problems/toeplitz-matrix/"]],
-  [["Pascal's Triangle","https://leetcode.com/problems/pascals-triangle/"],["Pascal's Triangle II","https://leetcode.com/problems/pascals-triangle-ii/"]],
+  [["Rotate Image","https://leetcode.com/problems/rotate-image/","M"],["Spiral Matrix","https://leetcode.com/problems/spiral-matrix/","M"],["Spiral Matrix II","https://leetcode.com/problems/spiral-matrix-ii/","M"],["Spiral Matrix III","https://leetcode.com/problems/spiral-matrix-iii/","M"],["Set Matrix Zeroes","https://leetcode.com/problems/set-matrix-zeroes/","M"]],
+  [["Search a 2D Matrix","https://leetcode.com/problems/search-a-2d-matrix/","M"],["Search a 2D Matrix II","https://leetcode.com/problems/search-a-2d-matrix-ii/","M"],["Diagonal Traverse","https://leetcode.com/problems/diagonal-traverse/","M"],["Diagonal Traverse II","https://leetcode.com/problems/diagonal-traverse-ii/","M"],["Count Negative Numbers in a Sorted Matrix","https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/","E"]],
+  [["Valid Sudoku","https://leetcode.com/problems/valid-sudoku/","M"],["Game of Life","https://leetcode.com/problems/game-of-life/","M"],["Transpose Matrix","https://leetcode.com/problems/transpose-matrix/","E"],["Reshape the Matrix","https://leetcode.com/problems/reshape-the-matrix/","E"],["Shift 2D Grid","https://leetcode.com/problems/shift-2d-grid/","E"]],
+  [["Flood Fill","https://leetcode.com/problems/flood-fill/","E"],["Image Smoother","https://leetcode.com/problems/image-smoother/","E"],["Matrix Diagonal Sum","https://leetcode.com/problems/matrix-diagonal-sum/","E"],["Island Perimeter","https://leetcode.com/problems/island-perimeter/","E"],["Max Consecutive Ones","https://leetcode.com/problems/max-consecutive-ones/","E"]],
+  [["Kth Smallest Element in a Sorted Matrix","https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/","M"],["Toeplitz Matrix","https://leetcode.com/problems/toeplitz-matrix/","E"],["Special Positions in a Binary Matrix","https://leetcode.com/problems/special-positions-in-a-binary-matrix/","E"],["Max Increase to Keep City Skyline","https://leetcode.com/problems/max-increase-to-keep-city-skyline/","M"],["Largest 1-Bordered Square","https://leetcode.com/problems/largest-1-bordered-square/","M"]],
+  [["Pascal's Triangle","https://leetcode.com/problems/pascals-triangle/","E"],["Pascal's Triangle II","https://leetcode.com/problems/pascals-triangle-ii/","E"],["Path With Maximum Minimum Value","https://leetcode.com/problems/path-with-maximum-minimum-value/","M"],["Cherry Pickup","https://leetcode.com/problems/cherry-pickup/","H"],["Unique Paths III","https://leetcode.com/problems/unique-paths-iii/","H"]],
 ]},
 { title: "Binary Search (all variants)", days: [
-  [["Binary Search","https://leetcode.com/problems/binary-search/"],["Search Insert Position","https://leetcode.com/problems/search-insert-position/"],["Find First and Last Position of Element in Sorted Array","https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"]],
-  [["Search in Rotated Sorted Array","https://leetcode.com/problems/search-in-rotated-sorted-array/"],["Search in Rotated Sorted Array II","https://leetcode.com/problems/search-in-rotated-sorted-array-ii/"],["Find Minimum in Rotated Sorted Array","https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/"]],
-  [["Find Minimum in Rotated Sorted Array II","https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/"],["Find Peak Element","https://leetcode.com/problems/find-peak-element/"],["Koko Eating Bananas","https://leetcode.com/problems/koko-eating-bananas/"]],
-  [["Capacity To Ship Packages Within D Days","https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/"],["Split Array Largest Sum","https://leetcode.com/problems/split-array-largest-sum/"],["Minimum Number of Days to Make m Bouquets","https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/"]],
-  [["Median of Two Sorted Arrays","https://leetcode.com/problems/median-of-two-sorted-arrays/"],["Sqrt(x)","https://leetcode.com/problems/sqrtx/"]],
-  [["Find K Closest Elements","https://leetcode.com/problems/find-k-closest-elements/"],["Time Based Key-Value Store","https://leetcode.com/problems/time-based-key-value-store/"]],
+  [["Binary Search","https://leetcode.com/problems/binary-search/","E"],["Search Insert Position","https://leetcode.com/problems/search-insert-position/","E"],["First Bad Version","https://leetcode.com/problems/first-bad-version/","E"],["Guess Number Higher or Lower","https://leetcode.com/problems/guess-number-higher-or-lower/","E"],["Valid Perfect Square","https://leetcode.com/problems/valid-perfect-square/","E"]],
+  [["Find First and Last Position of Element in Sorted Array","https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/","M"],["Peak Index in a Mountain Array","https://leetcode.com/problems/peak-index-in-a-mountain-array/","E"],["Kth Missing Positive Number","https://leetcode.com/problems/kth-missing-positive-number/","E"],["Single Element in a Sorted Array","https://leetcode.com/problems/single-element-in-a-sorted-array/","M"],["H-Index II","https://leetcode.com/problems/h-index-ii/","M"]],
+  [["Search in Rotated Sorted Array","https://leetcode.com/problems/search-in-rotated-sorted-array/","M"],["Search in Rotated Sorted Array II","https://leetcode.com/problems/search-in-rotated-sorted-array-ii/","M"],["Find Minimum in Rotated Sorted Array","https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/","M"],["Find Minimum in Rotated Sorted Array II","https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/","H"],["Find Peak Element","https://leetcode.com/problems/find-peak-element/","M"]],
+  [["Koko Eating Bananas","https://leetcode.com/problems/koko-eating-bananas/","M"],["Capacity To Ship Packages Within D Days","https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/","M"],["Minimum Number of Days to Make m Bouquets","https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/","M"],["Magnetic Force Between Two Balls","https://leetcode.com/problems/magnetic-force-between-two-balls/","M"],["Minimum Speed to Arrive on Time","https://leetcode.com/problems/minimum-speed-to-arrive-on-time/","M"]],
+  [["Split Array Largest Sum","https://leetcode.com/problems/split-array-largest-sum/","H"],["Divide Chocolate","https://leetcode.com/problems/divide-chocolate/","H"],["Median of Two Sorted Arrays","https://leetcode.com/problems/median-of-two-sorted-arrays/","H"],["Find Right Interval","https://leetcode.com/problems/find-right-interval/","M"],["Maximum Number of Removable Characters","https://leetcode.com/problems/maximum-number-of-removable-characters/","M"]],
+  [["Sqrt(x)","https://leetcode.com/problems/sqrtx/","E"],["Find K Closest Elements","https://leetcode.com/problems/find-k-closest-elements/","M"],["Time Based Key-Value Store","https://leetcode.com/problems/time-based-key-value-store/","M"],["Random Pick with Weight","https://leetcode.com/problems/random-pick-with-weight/","M"],["Count of Smaller Numbers After Self","https://leetcode.com/problems/count-of-smaller-numbers-after-self/","H"]],
 ]},
 { title: "Linked Lists", days: [
-  [["Reverse Linked List","https://leetcode.com/problems/reverse-linked-list/"],["Reverse Linked List II","https://leetcode.com/problems/reverse-linked-list-ii/"],["Linked List Cycle","https://leetcode.com/problems/linked-list-cycle/"]],
-  [["Linked List Cycle II","https://leetcode.com/problems/linked-list-cycle-ii/"],["Middle of the Linked List","https://leetcode.com/problems/middle-of-the-linked-list/"],["Palindrome Linked List","https://leetcode.com/problems/palindrome-linked-list/"]],
-  [["Merge Two Sorted Lists","https://leetcode.com/problems/merge-two-sorted-lists/"],["Merge k Sorted Lists","https://leetcode.com/problems/merge-k-sorted-lists/"],["Remove Nth Node From End of List","https://leetcode.com/problems/remove-nth-node-from-end-of-list/"]],
-  [["Add Two Numbers","https://leetcode.com/problems/add-two-numbers/"],["Copy List with Random Pointer","https://leetcode.com/problems/copy-list-with-random-pointer/"],["LRU Cache","https://leetcode.com/problems/lru-cache/"]],
-  [["Reorder List","https://leetcode.com/problems/reorder-list/"],["Rotate List","https://leetcode.com/problems/rotate-list/"]],
-  [["Swap Nodes in Pairs","https://leetcode.com/problems/swap-nodes-in-pairs/"],["Intersection of Two Linked Lists","https://leetcode.com/problems/intersection-of-two-linked-lists/"]],
+  [["Reverse Linked List","https://leetcode.com/problems/reverse-linked-list/","E"],["Reverse Linked List II","https://leetcode.com/problems/reverse-linked-list-ii/","M"],["Reverse Nodes in k-Group","https://leetcode.com/problems/reverse-nodes-in-k-group/","H"],["Delete Node in a Linked List","https://leetcode.com/problems/delete-node-in-a-linked-list/","E"],["Design Linked List","https://leetcode.com/problems/design-linked-list/","M"]],
+  [["Linked List Cycle","https://leetcode.com/problems/linked-list-cycle/","E"],["Linked List Cycle II","https://leetcode.com/problems/linked-list-cycle-ii/","M"],["Middle of the Linked List","https://leetcode.com/problems/middle-of-the-linked-list/","E"],["Palindrome Linked List","https://leetcode.com/problems/palindrome-linked-list/","E"],["Convert Binary Number in a Linked List to Integer","https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/","E"]],
+  [["Merge Two Sorted Lists","https://leetcode.com/problems/merge-two-sorted-lists/","E"],["Merge k Sorted Lists","https://leetcode.com/problems/merge-k-sorted-lists/","H"],["Remove Nth Node From End of List","https://leetcode.com/problems/remove-nth-node-from-end-of-list/","M"],["Sort List","https://leetcode.com/problems/sort-list/","M"],["Insertion Sort List","https://leetcode.com/problems/insertion-sort-list/","M"]],
+  [["Add Two Numbers","https://leetcode.com/problems/add-two-numbers/","M"],["Add Two Numbers II","https://leetcode.com/problems/add-two-numbers-ii/","M"],["Copy List with Random Pointer","https://leetcode.com/problems/copy-list-with-random-pointer/","M"],["Flatten a Multilevel Doubly Linked List","https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/","M"],["Linked List Random Node","https://leetcode.com/problems/linked-list-random-node/","M"]],
+  [["LRU Cache","https://leetcode.com/problems/lru-cache/","M"],["Reorder List","https://leetcode.com/problems/reorder-list/","M"],["Rotate List","https://leetcode.com/problems/rotate-list/","M"],["Split Linked List in Parts","https://leetcode.com/problems/split-linked-list-in-parts/","M"],["Partition List","https://leetcode.com/problems/partition-list/","M"]],
+  [["Swap Nodes in Pairs","https://leetcode.com/problems/swap-nodes-in-pairs/","M"],["Intersection of Two Linked Lists","https://leetcode.com/problems/intersection-of-two-linked-lists/","E"],["Odd Even Linked List","https://leetcode.com/problems/odd-even-linked-list/","M"],["Remove Duplicates from Sorted List","https://leetcode.com/problems/remove-duplicates-from-sorted-list/","E"],["Remove Duplicates from Sorted List II","https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/","M"]],
 ]},
 { title: "Stacks, Queues, Monotonic Stack", days: [
-  [["Valid Parentheses","https://leetcode.com/problems/valid-parentheses/"],["Min Stack","https://leetcode.com/problems/min-stack/"],["Implement Queue using Stacks","https://leetcode.com/problems/implement-queue-using-stacks/"]],
-  [["Implement Stack using Queues","https://leetcode.com/problems/implement-stack-using-queues/"],["Daily Temperatures","https://leetcode.com/problems/daily-temperatures/"],["Next Greater Element I","https://leetcode.com/problems/next-greater-element-i/"]],
-  [["Next Greater Element II","https://leetcode.com/problems/next-greater-element-ii/"],["Largest Rectangle in Histogram","https://leetcode.com/problems/largest-rectangle-in-histogram/"],["Maximal Rectangle","https://leetcode.com/problems/maximal-rectangle/"]],
-  [["Evaluate Reverse Polish Notation","https://leetcode.com/problems/evaluate-reverse-polish-notation/"],["Basic Calculator","https://leetcode.com/problems/basic-calculator/"],["Basic Calculator II","https://leetcode.com/problems/basic-calculator-ii/"]],
-  [["Decode String","https://leetcode.com/problems/decode-string/"],["Asteroid Collision","https://leetcode.com/problems/asteroid-collision/"]],
-  [["Remove All Adjacent Duplicates In String","https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/"],["Design Circular Queue","https://leetcode.com/problems/design-circular-queue/"]],
+  [["Valid Parentheses","https://leetcode.com/problems/valid-parentheses/","E"],["Min Stack","https://leetcode.com/problems/min-stack/","M"],["Backspace String Compare","https://leetcode.com/problems/backspace-string-compare/","E"],["Baseball Game","https://leetcode.com/problems/baseball-game/","E"],["Number of Recent Calls","https://leetcode.com/problems/number-of-recent-calls/","E"]],
+  [["Implement Queue using Stacks","https://leetcode.com/problems/implement-queue-using-stacks/","E"],["Implement Stack using Queues","https://leetcode.com/problems/implement-stack-using-queues/","E"],["Design Circular Queue","https://leetcode.com/problems/design-circular-queue/","M"],["Design Circular Deque","https://leetcode.com/problems/design-circular-deque/","M"],["Dota2 Senate","https://leetcode.com/problems/dota2-senate/","M"]],
+  [["Daily Temperatures","https://leetcode.com/problems/daily-temperatures/","M"],["Next Greater Element I","https://leetcode.com/problems/next-greater-element-i/","E"],["Next Greater Element II","https://leetcode.com/problems/next-greater-element-ii/","M"],["Online Stock Span","https://leetcode.com/problems/online-stock-span/","M"],["132 Pattern","https://leetcode.com/problems/132-pattern/","M"]],
+  [["Largest Rectangle in Histogram","https://leetcode.com/problems/largest-rectangle-in-histogram/","H"],["Maximal Rectangle","https://leetcode.com/problems/maximal-rectangle/","H"],["Sum of Subarray Minimums","https://leetcode.com/problems/sum-of-subarray-minimums/","M"],["Car Fleet","https://leetcode.com/problems/car-fleet/","M"],["Asteroid Collision","https://leetcode.com/problems/asteroid-collision/","M"]],
+  [["Evaluate Reverse Polish Notation","https://leetcode.com/problems/evaluate-reverse-polish-notation/","M"],["Basic Calculator","https://leetcode.com/problems/basic-calculator/","H"],["Basic Calculator II","https://leetcode.com/problems/basic-calculator-ii/","M"],["Remove K Digits","https://leetcode.com/problems/remove-k-digits/","M"],["Simplify Path","https://leetcode.com/problems/simplify-path/","M"]],
+  [["Decode String","https://leetcode.com/problems/decode-string/","M"],["Remove All Adjacent Duplicates In String","https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/","E"],["Remove All Adjacent Duplicates in String II","https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/","M"],["Exclusive Time of Functions","https://leetcode.com/problems/exclusive-time-of-functions/","M"],["Flatten Nested List Iterator","https://leetcode.com/problems/flatten-nested-list-iterator/","M"]],
 ]},
 { title: "Recursion & Backtracking", days: [
-  [["Subsets","https://leetcode.com/problems/subsets/"],["Subsets II","https://leetcode.com/problems/subsets-ii/"],["Combinations","https://leetcode.com/problems/combinations/"]],
-  [["Combination Sum","https://leetcode.com/problems/combination-sum/"],["Combination Sum II","https://leetcode.com/problems/combination-sum-ii/"],["Combination Sum III","https://leetcode.com/problems/combination-sum-iii/"]],
-  [["Permutations","https://leetcode.com/problems/permutations/"],["Permutations II","https://leetcode.com/problems/permutations-ii/"],["Letter Combinations of a Phone Number","https://leetcode.com/problems/letter-combinations-of-a-phone-number/"]],
-  [["Palindrome Partitioning","https://leetcode.com/problems/palindrome-partitioning/"],["Word Search","https://leetcode.com/problems/word-search/"],["N-Queens","https://leetcode.com/problems/n-queens/"]],
-  [["N-Queens II","https://leetcode.com/problems/n-queens-ii/"],["Sudoku Solver","https://leetcode.com/problems/sudoku-solver/"]],
-  [["Generate Parentheses","https://leetcode.com/problems/generate-parentheses/"],["Restore IP Addresses","https://leetcode.com/problems/restore-ip-addresses/"]],
+  [["Subsets","https://leetcode.com/problems/subsets/","M"],["Subsets II","https://leetcode.com/problems/subsets-ii/","M"],["Letter Case Permutation","https://leetcode.com/problems/letter-case-permutation/","E"],["Binary Watch","https://leetcode.com/problems/binary-watch/","E"],["Beautiful Arrangement","https://leetcode.com/problems/beautiful-arrangement/","M"]],
+  [["Combinations","https://leetcode.com/problems/combinations/","M"],["Combination Sum","https://leetcode.com/problems/combination-sum/","M"],["Combination Sum II","https://leetcode.com/problems/combination-sum-ii/","M"],["Combination Sum III","https://leetcode.com/problems/combination-sum-iii/","M"],["K-th Symbol in Grammar","https://leetcode.com/problems/k-th-symbol-in-grammar/","M"]],
+  [["Permutations","https://leetcode.com/problems/permutations/","M"],["Permutations II","https://leetcode.com/problems/permutations-ii/","M"],["Gray Code","https://leetcode.com/problems/gray-code/","M"],["The k-th Lexicographical String of All Happy Strings of Length n","https://leetcode.com/problems/the-k-th-lexicographical-string-of-all-happy-strings-of-length-n/","M"],["Different Ways to Add Parentheses","https://leetcode.com/problems/different-ways-to-add-parentheses/","M"]],
+  [["Letter Combinations of a Phone Number","https://leetcode.com/problems/letter-combinations-of-a-phone-number/","M"],["Palindrome Partitioning","https://leetcode.com/problems/palindrome-partitioning/","M"],["Word Search","https://leetcode.com/problems/word-search/","M"],["Path with Maximum Gold","https://leetcode.com/problems/path-with-maximum-gold/","M"],["Matchsticks to Square","https://leetcode.com/problems/matchsticks-to-square/","M"]],
+  [["N-Queens","https://leetcode.com/problems/n-queens/","H"],["N-Queens II","https://leetcode.com/problems/n-queens-ii/","H"],["Sudoku Solver","https://leetcode.com/problems/sudoku-solver/","H"],["Unique Binary Search Trees II","https://leetcode.com/problems/unique-binary-search-trees-ii/","M"],["Additive Number","https://leetcode.com/problems/additive-number/","M"]],
+  [["Generate Parentheses","https://leetcode.com/problems/generate-parentheses/","M"],["Restore IP Addresses","https://leetcode.com/problems/restore-ip-addresses/","M"],["Splitting a String Into Descending Consecutive Values","https://leetcode.com/problems/splitting-a-string-into-descending-consecutive-values/","M"],["Expression Add Operators","https://leetcode.com/problems/expression-add-operators/","H"],["Word Ladder II","https://leetcode.com/problems/word-ladder-ii/","H"]],
 ]},
 { title: "Trees: Traversals & BST", days: [
-  [["Binary Tree Inorder Traversal","https://leetcode.com/problems/binary-tree-inorder-traversal/"],["Binary Tree Preorder Traversal","https://leetcode.com/problems/binary-tree-preorder-traversal/"],["Binary Tree Postorder Traversal","https://leetcode.com/problems/binary-tree-postorder-traversal/"]],
-  [["Binary Tree Level Order Traversal","https://leetcode.com/problems/binary-tree-level-order-traversal/"],["Binary Tree Zigzag Level Order Traversal","https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/"],["Maximum Depth of Binary Tree","https://leetcode.com/problems/maximum-depth-of-binary-tree/"]],
-  [["Minimum Depth of Binary Tree","https://leetcode.com/problems/minimum-depth-of-binary-tree/"],["Balanced Binary Tree","https://leetcode.com/problems/balanced-binary-tree/"],["Invert Binary Tree","https://leetcode.com/problems/invert-binary-tree/"]],
-  [["Validate Binary Search Tree","https://leetcode.com/problems/validate-binary-search-tree/"],["Insert into a Binary Search Tree","https://leetcode.com/problems/insert-into-a-binary-search-tree/"],["Path Sum","https://leetcode.com/problems/path-sum/"]],
-  [["Path Sum II","https://leetcode.com/problems/path-sum-ii/"],["Same Tree","https://leetcode.com/problems/same-tree/"]],
-  [["Symmetric Tree","https://leetcode.com/problems/symmetric-tree/"],["Merge Two Binary Trees","https://leetcode.com/problems/merge-two-binary-trees/"]],
+  [["Binary Tree Inorder Traversal","https://leetcode.com/problems/binary-tree-inorder-traversal/","E"],["Binary Tree Preorder Traversal","https://leetcode.com/problems/binary-tree-preorder-traversal/","E"],["Binary Tree Postorder Traversal","https://leetcode.com/problems/binary-tree-postorder-traversal/","E"],["Univalued Binary Tree","https://leetcode.com/problems/univalued-binary-tree/","E"],["Increasing Order Search Tree","https://leetcode.com/problems/increasing-order-search-tree/","E"]],
+  [["Binary Tree Level Order Traversal","https://leetcode.com/problems/binary-tree-level-order-traversal/","M"],["Binary Tree Level Order Traversal II","https://leetcode.com/problems/binary-tree-level-order-traversal-ii/","M"],["Binary Tree Zigzag Level Order Traversal","https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/","M"],["Average of Levels in Binary Tree","https://leetcode.com/problems/average-of-levels-in-binary-tree/","E"],["Find Bottom Left Tree Value","https://leetcode.com/problems/find-bottom-left-tree-value/","M"]],
+  [["Maximum Depth of Binary Tree","https://leetcode.com/problems/maximum-depth-of-binary-tree/","E"],["Minimum Depth of Binary Tree","https://leetcode.com/problems/minimum-depth-of-binary-tree/","E"],["Balanced Binary Tree","https://leetcode.com/problems/balanced-binary-tree/","E"],["Cousins in Binary Tree","https://leetcode.com/problems/cousins-in-binary-tree/","E"],["Sum of Left Leaves","https://leetcode.com/problems/sum-of-left-leaves/","E"]],
+  [["Invert Binary Tree","https://leetcode.com/problems/invert-binary-tree/","E"],["Validate Binary Search Tree","https://leetcode.com/problems/validate-binary-search-tree/","M"],["Insert into a Binary Search Tree","https://leetcode.com/problems/insert-into-a-binary-search-tree/","M"],["Search in a Binary Search Tree","https://leetcode.com/problems/search-in-a-binary-search-tree/","E"],["Convert Sorted Array to Binary Search Tree","https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/","E"]],
+  [["Path Sum","https://leetcode.com/problems/path-sum/","E"],["Path Sum II","https://leetcode.com/problems/path-sum-ii/","M"],["Sum Root to Leaf Numbers","https://leetcode.com/problems/sum-root-to-leaf-numbers/","M"],["Minimum Absolute Difference in BST","https://leetcode.com/problems/minimum-absolute-difference-in-bst/","E"],["Range Sum of BST","https://leetcode.com/problems/range-sum-of-bst/","E"]],
+  [["Same Tree","https://leetcode.com/problems/same-tree/","E"],["Symmetric Tree","https://leetcode.com/problems/symmetric-tree/","E"],["Merge Two Binary Trees","https://leetcode.com/problems/merge-two-binary-trees/","E"],["Delete Node in a BST","https://leetcode.com/problems/delete-node-in-a-bst/","M"],["Trim a Binary Search Tree","https://leetcode.com/problems/trim-a-binary-search-tree/","M"]],
 ]},
 { title: "Trees: Advanced (LCA, Tries, Tree DP)", days: [
-  [["Lowest Common Ancestor of a Binary Tree","https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/"],["Lowest Common Ancestor of a Binary Search Tree","https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"],["Diameter of Binary Tree","https://leetcode.com/problems/diameter-of-binary-tree/"]],
-  [["Binary Tree Maximum Path Sum","https://leetcode.com/problems/binary-tree-maximum-path-sum/"],["Serialize and Deserialize Binary Tree","https://leetcode.com/problems/serialize-and-deserialize-binary-tree/"],["Construct Binary Tree from Preorder and Inorder Traversal","https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"]],
-  [["Construct Binary Tree from Inorder and Postorder Traversal","https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/"],["Implement Trie (Prefix Tree)","https://leetcode.com/problems/implement-trie-prefix-tree/"],["Design Add and Search Words Data Structure","https://leetcode.com/problems/design-add-and-search-words-data-structure/"]],
-  [["Word Search II","https://leetcode.com/problems/word-search-ii/"],["House Robber III","https://leetcode.com/problems/house-robber-iii/"],["Kth Smallest Element in a BST","https://leetcode.com/problems/kth-smallest-element-in-a-bst/"]],
-  [["Flatten Binary Tree to Linked List","https://leetcode.com/problems/flatten-binary-tree-to-linked-list/"],["Populating Next Right Pointers in Each Node","https://leetcode.com/problems/populating-next-right-pointers-in-each-node/"]],
-  [["Count Good Nodes in Binary Tree","https://leetcode.com/problems/count-good-nodes-in-binary-tree/"],["Binary Tree Right Side View","https://leetcode.com/problems/binary-tree-right-side-view/"]],
+  [["Lowest Common Ancestor of a Binary Tree","https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/","M"],["Lowest Common Ancestor of a Binary Search Tree","https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/","M"],["Diameter of Binary Tree","https://leetcode.com/problems/diameter-of-binary-tree/","E"],["Longest Univalue Path","https://leetcode.com/problems/longest-univalue-path/","M"],["All Nodes Distance K in Binary Tree","https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/","M"]],
+  [["Binary Tree Maximum Path Sum","https://leetcode.com/problems/binary-tree-maximum-path-sum/","H"],["Recover Binary Search Tree","https://leetcode.com/problems/recover-binary-search-tree/","M"],["Maximum Width of Binary Tree","https://leetcode.com/problems/maximum-width-of-binary-tree/","M"],["Binary Tree Cameras","https://leetcode.com/problems/binary-tree-cameras/","H"],["Smallest String Starting From Leaf","https://leetcode.com/problems/smallest-string-starting-from-leaf/","M"]],
+  [["Serialize and Deserialize Binary Tree","https://leetcode.com/problems/serialize-and-deserialize-binary-tree/","H"],["Vertical Order Traversal of a Binary Tree","https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/","H"],["Verify Preorder Serialization of a Binary Tree","https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/","M"],["Construct Binary Search Tree from Preorder Traversal","https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/","M"],["Delete Nodes And Return Forest","https://leetcode.com/problems/delete-nodes-and-return-forest/","M"]],
+  [["Construct Binary Tree from Preorder and Inorder Traversal","https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/","M"],["Construct Binary Tree from Inorder and Postorder Traversal","https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/","M"],["Implement Trie (Prefix Tree)","https://leetcode.com/problems/implement-trie-prefix-tree/","M"],["Map Sum Pairs","https://leetcode.com/problems/map-sum-pairs/","M"],["Longest Word in Dictionary","https://leetcode.com/problems/longest-word-in-dictionary/","M"]],
+  [["Design Add and Search Words Data Structure","https://leetcode.com/problems/design-add-and-search-words-data-structure/","M"],["Word Search II","https://leetcode.com/problems/word-search-ii/","H"],["Replace Words","https://leetcode.com/problems/replace-words/","M"],["House Robber III","https://leetcode.com/problems/house-robber-iii/","M"],["Kth Smallest Element in a BST","https://leetcode.com/problems/kth-smallest-element-in-a-bst/","M"]],
+  [["Flatten Binary Tree to Linked List","https://leetcode.com/problems/flatten-binary-tree-to-linked-list/","M"],["Populating Next Right Pointers in Each Node","https://leetcode.com/problems/populating-next-right-pointers-in-each-node/","M"],["Populating Next Right Pointers in Each Node II","https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/","M"],["Count Good Nodes in Binary Tree","https://leetcode.com/problems/count-good-nodes-in-binary-tree/","M"],["Binary Tree Right Side View","https://leetcode.com/problems/binary-tree-right-side-view/","M"]],
 ]},
 { title: "Graphs: BFS/DFS Foundations", days: [
-  [["Number of Islands","https://leetcode.com/problems/number-of-islands/"],["Max Area of Island","https://leetcode.com/problems/max-area-of-island/"],["Clone Graph","https://leetcode.com/problems/clone-graph/"]],
-  [["Pacific Atlantic Water Flow","https://leetcode.com/problems/pacific-atlantic-water-flow/"],["Surrounded Regions","https://leetcode.com/problems/surrounded-regions/"],["Rotting Oranges","https://leetcode.com/problems/rotting-oranges/"]],
-  [["01 Matrix","https://leetcode.com/problems/01-matrix/"],["As Far from Land as Possible","https://leetcode.com/problems/as-far-from-land-as-possible/"],["Word Ladder","https://leetcode.com/problems/word-ladder/"]],
-  [["Course Schedule","https://leetcode.com/problems/course-schedule/"],["Course Schedule II","https://leetcode.com/problems/course-schedule-ii/"],["Is Graph Bipartite?","https://leetcode.com/problems/is-graph-bipartite/"]],
-  [["All Paths From Source to Target","https://leetcode.com/problems/all-paths-from-source-to-target/"],["Keys and Rooms","https://leetcode.com/problems/keys-and-rooms/"]],
-  [["Number of Provinces","https://leetcode.com/problems/number-of-provinces/"],["Shortest Path in Binary Matrix","https://leetcode.com/problems/shortest-path-in-binary-matrix/"]],
+  [["Number of Islands","https://leetcode.com/problems/number-of-islands/","M"],["Max Area of Island","https://leetcode.com/problems/max-area-of-island/","M"],["Number of Closed Islands","https://leetcode.com/problems/number-of-closed-islands/","M"],["Number of Enclaves","https://leetcode.com/problems/number-of-enclaves/","M"],["Count Sub Islands","https://leetcode.com/problems/count-sub-islands/","M"]],
+  [["Clone Graph","https://leetcode.com/problems/clone-graph/","M"],["Pacific Atlantic Water Flow","https://leetcode.com/problems/pacific-atlantic-water-flow/","M"],["Surrounded Regions","https://leetcode.com/problems/surrounded-regions/","M"],["Making A Large Island","https://leetcode.com/problems/making-a-large-island/","H"],["Find if Path Exists in Graph","https://leetcode.com/problems/find-if-path-exists-in-graph/","E"]],
+  [["Rotting Oranges","https://leetcode.com/problems/rotting-oranges/","M"],["01 Matrix","https://leetcode.com/problems/01-matrix/","M"],["As Far from Land as Possible","https://leetcode.com/problems/as-far-from-land-as-possible/","M"],["Open the Lock","https://leetcode.com/problems/open-the-lock/","M"],["Minimum Genetic Mutation","https://leetcode.com/problems/minimum-genetic-mutation/","M"]],
+  [["Word Ladder","https://leetcode.com/problems/word-ladder/","H"],["Snakes and Ladders","https://leetcode.com/problems/snakes-and-ladders/","M"],["Bus Routes","https://leetcode.com/problems/bus-routes/","H"],["N-ary Tree Level Order Traversal","https://leetcode.com/problems/n-ary-tree-level-order-traversal/","M"],["Employee Importance","https://leetcode.com/problems/employee-importance/","M"]],
+  [["Course Schedule","https://leetcode.com/problems/course-schedule/","M"],["Course Schedule II","https://leetcode.com/problems/course-schedule-ii/","M"],["Is Graph Bipartite?","https://leetcode.com/problems/is-graph-bipartite/","M"],["Find Eventual Safe States","https://leetcode.com/problems/find-eventual-safe-states/","M"],["Time Needed to Inform All Employees","https://leetcode.com/problems/time-needed-to-inform-all-employees/","M"]],
+  [["All Paths From Source to Target","https://leetcode.com/problems/all-paths-from-source-to-target/","M"],["Keys and Rooms","https://leetcode.com/problems/keys-and-rooms/","M"],["Number of Provinces","https://leetcode.com/problems/number-of-provinces/","M"],["Shortest Path in Binary Matrix","https://leetcode.com/problems/shortest-path-in-binary-matrix/","M"],["Detonate the Maximum Bombs","https://leetcode.com/problems/detonate-the-maximum-bombs/","M"]],
 ]},
 { title: "Graphs: Union-Find, Topo Sort, Shortest Path, MST", days: [
-  [["Redundant Connection","https://leetcode.com/problems/redundant-connection/"],["Accounts Merge","https://leetcode.com/problems/accounts-merge/"],["Most Stones Removed with Same Row or Column","https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/"]],
-  [["Evaluate Division","https://leetcode.com/problems/evaluate-division/"],["Network Delay Time","https://leetcode.com/problems/network-delay-time/"],["Cheapest Flights Within K Stops","https://leetcode.com/problems/cheapest-flights-within-k-stops/"]],
-  [["Path with Maximum Probability","https://leetcode.com/problems/path-with-maximum-probability/"],["Min Cost to Connect All Points","https://leetcode.com/problems/min-cost-to-connect-all-points/"]],
-  [["Minimum Height Trees","https://leetcode.com/problems/minimum-height-trees/"],["Course Schedule III","https://leetcode.com/problems/course-schedule-iii/"]],
-  [["Reconstruct Itinerary","https://leetcode.com/problems/reconstruct-itinerary/"],["Critical Connections in a Network","https://leetcode.com/problems/critical-connections-in-a-network/"]],
-  [["Swim in Rising Water","https://leetcode.com/problems/swim-in-rising-water/"],["Find the City With the Smallest Number of Neighbors at a Threshold Distance","https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/"]],
+  [["Redundant Connection","https://leetcode.com/problems/redundant-connection/","M"],["Redundant Connection II","https://leetcode.com/problems/redundant-connection-ii/","H"],["Accounts Merge","https://leetcode.com/problems/accounts-merge/","M"],["Satisfiability of Equality Equations","https://leetcode.com/problems/satisfiability-of-equality-equations/","M"],["Smallest String With Swaps","https://leetcode.com/problems/smallest-string-with-swaps/","M"]],
+  [["Most Stones Removed with Same Row or Column","https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/","M"],["Number of Operations to Make Network Connected","https://leetcode.com/problems/number-of-operations-to-make-network-connected/","M"],["Regions Cut By Slashes","https://leetcode.com/problems/regions-cut-by-slashes/","M"],["Evaluate Division","https://leetcode.com/problems/evaluate-division/","M"],["Loud and Rich","https://leetcode.com/problems/loud-and-rich/","M"]],
+  [["Network Delay Time","https://leetcode.com/problems/network-delay-time/","M"],["Cheapest Flights Within K Stops","https://leetcode.com/problems/cheapest-flights-within-k-stops/","M"],["Number of Ways to Arrive at Destination","https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/","M"],["Path with Maximum Probability","https://leetcode.com/problems/path-with-maximum-probability/","M"],["Path With Minimum Effort","https://leetcode.com/problems/path-with-minimum-effort/","M"]],
+  [["Min Cost to Connect All Points","https://leetcode.com/problems/min-cost-to-connect-all-points/","M"],["Minimum Height Trees","https://leetcode.com/problems/minimum-height-trees/","M"],["Minimum Number of Vertices to Reach All Nodes","https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/","M"],["Parallel Courses","https://leetcode.com/problems/parallel-courses/","M"],["Course Schedule III","https://leetcode.com/problems/course-schedule-iii/","H"]],
+  [["Reconstruct Itinerary","https://leetcode.com/problems/reconstruct-itinerary/","H"],["Sort Items by Groups Respecting Dependencies","https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/","H"],["Critical Connections in a Network","https://leetcode.com/problems/critical-connections-in-a-network/","H"],["Remove Max Number of Edges to Keep Graph Fully Traversable","https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/","H"],["Minimize Malware Spread","https://leetcode.com/problems/minimize-malware-spread/","H"]],
+  [["Swim in Rising Water","https://leetcode.com/problems/swim-in-rising-water/","H"],["Find the City With the Smallest Number of Neighbors at a Threshold Distance","https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/","M"],["Shortest Path Visiting All Nodes","https://leetcode.com/problems/shortest-path-visiting-all-nodes/","H"],["Couples Holding Hands","https://leetcode.com/problems/couples-holding-hands/","H"],["Frog Position After T Seconds","https://leetcode.com/problems/frog-position-after-t-seconds/","M"]],
 ]},
 { title: "Heaps & Priority Queues", days: [
-  [["Kth Largest Element in an Array","https://leetcode.com/problems/kth-largest-element-in-an-array/"],["Kth Largest Element in a Stream","https://leetcode.com/problems/kth-largest-element-in-a-stream/"]],
-  [["Top K Frequent Words","https://leetcode.com/problems/top-k-frequent-words/"],["Find Median from Data Stream","https://leetcode.com/problems/find-median-from-data-stream/"]],
-  [["Task Scheduler","https://leetcode.com/problems/task-scheduler/"],["Car Pooling","https://leetcode.com/problems/car-pooling/"]],
-  [["K Closest Points to Origin","https://leetcode.com/problems/k-closest-points-to-origin/"],["Last Stone Weight","https://leetcode.com/problems/last-stone-weight/"]],
-  [["Reorganize String","https://leetcode.com/problems/reorganize-string/"],["Smallest Range Covering Elements from K Lists","https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/"]],
-  [["IPO","https://leetcode.com/problems/ipo/"],["Sliding Window Median","https://leetcode.com/problems/sliding-window-median/"]],
+  [["Kth Largest Element in an Array","https://leetcode.com/problems/kth-largest-element-in-an-array/","M"],["Kth Largest Element in a Stream","https://leetcode.com/problems/kth-largest-element-in-a-stream/","E"],["Ugly Number II","https://leetcode.com/problems/ugly-number-ii/","M"],["Super Ugly Number","https://leetcode.com/problems/super-ugly-number/","M"],["Seat Reservation Manager","https://leetcode.com/problems/seat-reservation-manager/","M"]],
+  [["Top K Frequent Words","https://leetcode.com/problems/top-k-frequent-words/","M"],["Find Median from Data Stream","https://leetcode.com/problems/find-median-from-data-stream/","H"],["Minimum Cost to Connect Sticks","https://leetcode.com/problems/minimum-cost-to-connect-sticks/","M"],["Find K Pairs with Smallest Sums","https://leetcode.com/problems/find-k-pairs-with-smallest-sums/","M"],["Kth Smallest Product of Two Sorted Arrays","https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays/","H"]],
+  [["Task Scheduler","https://leetcode.com/problems/task-scheduler/","M"],["Car Pooling","https://leetcode.com/problems/car-pooling/","M"],["Single-Threaded CPU","https://leetcode.com/problems/single-threaded-cpu/","M"],["Process Tasks Using Servers","https://leetcode.com/problems/process-tasks-using-servers/","M"],["Total Cost to Hire K Workers","https://leetcode.com/problems/total-cost-to-hire-k-workers/","M"]],
+  [["K Closest Points to Origin","https://leetcode.com/problems/k-closest-points-to-origin/","M"],["Last Stone Weight","https://leetcode.com/problems/last-stone-weight/","E"],["Reduce Array Size to The Half","https://leetcode.com/problems/reduce-array-size-to-the-half/","M"],["Maximum Subsequence Score","https://leetcode.com/problems/maximum-subsequence-score/","M"],["Minimum Deletions to Make Character Frequencies Unique","https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/","M"]],
+  [["Reorganize String","https://leetcode.com/problems/reorganize-string/","M"],["Longest Happy String","https://leetcode.com/problems/longest-happy-string/","M"],["Furthest Building You Can Reach","https://leetcode.com/problems/furthest-building-you-can-reach/","M"],["Minimum Number of Refueling Stops","https://leetcode.com/problems/minimum-number-of-refueling-stops/","H"],["Maximum Performance of a Team","https://leetcode.com/problems/maximum-performance-of-a-team/","H"]],
+  [["Smallest Range Covering Elements from K Lists","https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/","H"],["IPO","https://leetcode.com/problems/ipo/","H"],["Sliding Window Median","https://leetcode.com/problems/sliding-window-median/","H"],["Maximum Number of Events That Can Be Attended","https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/","H"],["Trapping Rain Water II","https://leetcode.com/problems/trapping-rain-water-ii/","H"]],
 ]},
 { title: "Dynamic Programming: Part 1 (1D, Knapsack, LIS)", days: [
-  [["Climbing Stairs","https://leetcode.com/problems/climbing-stairs/"],["Min Cost Climbing Stairs","https://leetcode.com/problems/min-cost-climbing-stairs/"],["House Robber","https://leetcode.com/problems/house-robber/"]],
-  [["House Robber II","https://leetcode.com/problems/house-robber-ii/"],["Decode Ways","https://leetcode.com/problems/decode-ways/"],["Partition Equal Subset Sum","https://leetcode.com/problems/partition-equal-subset-sum/"]],
-  [["Target Sum","https://leetcode.com/problems/target-sum/"],["Coin Change","https://leetcode.com/problems/coin-change/"],["Coin Change II","https://leetcode.com/problems/coin-change-ii/"]],
-  [["Combination Sum IV","https://leetcode.com/problems/combination-sum-iv/"],["Longest Increasing Subsequence","https://leetcode.com/problems/longest-increasing-subsequence/"],["Russian Doll Envelopes","https://leetcode.com/problems/russian-doll-envelopes/"]],
-  [["Maximum Product Subarray","https://leetcode.com/problems/maximum-product-subarray/"],["Perfect Squares","https://leetcode.com/problems/perfect-squares/"]],
-  [["Word Break","https://leetcode.com/problems/word-break/"],["Word Break II","https://leetcode.com/problems/word-break-ii/"]],
+  [["Climbing Stairs","https://leetcode.com/problems/climbing-stairs/","E"],["Min Cost Climbing Stairs","https://leetcode.com/problems/min-cost-climbing-stairs/","E"],["Fibonacci Number","https://leetcode.com/problems/fibonacci-number/","E"],["N-th Tribonacci Number","https://leetcode.com/problems/n-th-tribonacci-number/","E"],["Triangle","https://leetcode.com/problems/triangle/","M"]],
+  [["House Robber","https://leetcode.com/problems/house-robber/","M"],["House Robber II","https://leetcode.com/problems/house-robber-ii/","M"],["Delete and Earn","https://leetcode.com/problems/delete-and-earn/","M"],["Maximum Sum Circular Subarray","https://leetcode.com/problems/maximum-sum-circular-subarray/","M"],["Stone Game","https://leetcode.com/problems/stone-game/","M"]],
+  [["Decode Ways","https://leetcode.com/problems/decode-ways/","M"],["Domino and Tromino Tiling","https://leetcode.com/problems/domino-and-tromino-tiling/","M"],["Integer Break","https://leetcode.com/problems/integer-break/","M"],["Minimum Cost For Tickets","https://leetcode.com/problems/minimum-cost-for-tickets/","M"],["Best Time to Buy and Sell Stock with Cooldown","https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/","M"]],
+  [["Partition Equal Subset Sum","https://leetcode.com/problems/partition-equal-subset-sum/","M"],["Target Sum","https://leetcode.com/problems/target-sum/","M"],["Ones and Zeroes","https://leetcode.com/problems/ones-and-zeroes/","M"],["Last Stone Weight II","https://leetcode.com/problems/last-stone-weight-ii/","M"],["Combination Sum IV","https://leetcode.com/problems/combination-sum-iv/","M"]],
+  [["Coin Change","https://leetcode.com/problems/coin-change/","M"],["Coin Change II","https://leetcode.com/problems/coin-change-ii/","M"],["Longest Increasing Subsequence","https://leetcode.com/problems/longest-increasing-subsequence/","M"],["Number of Longest Increasing Subsequence","https://leetcode.com/problems/number-of-longest-increasing-subsequence/","M"],["Maximum Length of Pair Chain","https://leetcode.com/problems/maximum-length-of-pair-chain/","M"]],
+  [["Russian Doll Envelopes","https://leetcode.com/problems/russian-doll-envelopes/","H"],["Maximum Product Subarray","https://leetcode.com/problems/maximum-product-subarray/","M"],["Perfect Squares","https://leetcode.com/problems/perfect-squares/","M"],["Word Break","https://leetcode.com/problems/word-break/","M"],["Word Break II","https://leetcode.com/problems/word-break-ii/","H"]],
 ]},
 { title: "Dynamic Programming: Part 2 (Grid, String, Interval DP)", days: [
-  [["Unique Paths","https://leetcode.com/problems/unique-paths/"],["Unique Paths II","https://leetcode.com/problems/unique-paths-ii/"],["Minimum Path Sum","https://leetcode.com/problems/minimum-path-sum/"]],
-  [["Longest Common Subsequence","https://leetcode.com/problems/longest-common-subsequence/"],["Edit Distance","https://leetcode.com/problems/edit-distance/"],["Longest Palindromic Subsequence","https://leetcode.com/problems/longest-palindromic-subsequence/"]],
-  [["Delete Operation for Two Strings","https://leetcode.com/problems/delete-operation-for-two-strings/"],["Distinct Subsequences","https://leetcode.com/problems/distinct-subsequences/"],["Burst Balloons","https://leetcode.com/problems/burst-balloons/"]],
-  [["Palindrome Partitioning II","https://leetcode.com/problems/palindrome-partitioning-ii/"],["Interleaving String","https://leetcode.com/problems/interleaving-string/"]],
-  [["Regular Expression Matching","https://leetcode.com/problems/regular-expression-matching/"],["Wildcard Matching","https://leetcode.com/problems/wildcard-matching/"]],
-  [["Maximal Square","https://leetcode.com/problems/maximal-square/"],["Partition to K Equal Sum Subsets","https://leetcode.com/problems/partition-to-k-equal-sum-subsets/"]],
+  [["Unique Paths","https://leetcode.com/problems/unique-paths/","M"],["Unique Paths II","https://leetcode.com/problems/unique-paths-ii/","M"],["Minimum Path Sum","https://leetcode.com/problems/minimum-path-sum/","M"],["Minimum Falling Path Sum","https://leetcode.com/problems/minimum-falling-path-sum/","M"],["Out of Boundary Paths","https://leetcode.com/problems/out-of-boundary-paths/","M"]],
+  [["Longest Common Subsequence","https://leetcode.com/problems/longest-common-subsequence/","M"],["Edit Distance","https://leetcode.com/problems/edit-distance/","H"],["Uncrossed Lines","https://leetcode.com/problems/uncrossed-lines/","M"],["Minimum ASCII Delete Sum for Two Strings","https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/","M"],["Shortest Common Supersequence","https://leetcode.com/problems/shortest-common-supersequence/","H"]],
+  [["Longest Palindromic Subsequence","https://leetcode.com/problems/longest-palindromic-subsequence/","M"],["Delete Operation for Two Strings","https://leetcode.com/problems/delete-operation-for-two-strings/","M"],["Minimum Insertion Steps to Make a String Palindrome","https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/","H"],["Count Different Palindromic Subsequences","https://leetcode.com/problems/count-different-palindromic-subsequences/","H"],["Strange Printer","https://leetcode.com/problems/strange-printer/","H"]],
+  [["Distinct Subsequences","https://leetcode.com/problems/distinct-subsequences/","H"],["Burst Balloons","https://leetcode.com/problems/burst-balloons/","H"],["Palindrome Partitioning II","https://leetcode.com/problems/palindrome-partitioning-ii/","H"],["Scramble String","https://leetcode.com/problems/scramble-string/","H"],["Interleaving String","https://leetcode.com/problems/interleaving-string/","M"]],
+  [["Regular Expression Matching","https://leetcode.com/problems/regular-expression-matching/","H"],["Wildcard Matching","https://leetcode.com/problems/wildcard-matching/","H"],["Maximal Square","https://leetcode.com/problems/maximal-square/","M"],["Knight Probability in Chessboard","https://leetcode.com/problems/knight-probability-in-chessboard/","M"],["Predict the Winner","https://leetcode.com/problems/predict-the-winner/","M"]],
+  [["Partition to K Equal Sum Subsets","https://leetcode.com/problems/partition-to-k-equal-sum-subsets/","M"],["Dungeon Game","https://leetcode.com/problems/dungeon-game/","H"],["Cherry Pickup II","https://leetcode.com/problems/cherry-pickup-ii/","H"],["Super Egg Drop","https://leetcode.com/problems/super-egg-drop/","H"],["Maximum Sum of 3 Non-Overlapping Subarrays","https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/","H"]],
 ]},
-{ title: "Greedy + Bit Manipulation + Design + Final Review", days: [
-  [["Jump Game","https://leetcode.com/problems/jump-game/"],["Jump Game II","https://leetcode.com/problems/jump-game-ii/"],["Gas Station","https://leetcode.com/problems/gas-station/"]],
-  [["Partition Labels","https://leetcode.com/problems/partition-labels/"],["Minimum Number of Arrows to Burst Balloons","https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/"],["Non-overlapping Intervals","https://leetcode.com/problems/non-overlapping-intervals/"]],
-  [["Single Number","https://leetcode.com/problems/single-number/"],["Single Number II","https://leetcode.com/problems/single-number-ii/"],["Single Number III","https://leetcode.com/problems/single-number-iii/"]],
-  [["Number of 1 Bits","https://leetcode.com/problems/number-of-1-bits/"],["Counting Bits","https://leetcode.com/problems/counting-bits/"],["Power of Two","https://leetcode.com/problems/power-of-two/"]],
-  [["Missing Number","https://leetcode.com/problems/missing-number/"],["Sum of Two Integers","https://leetcode.com/problems/sum-of-two-integers/"],["LFU Cache","https://leetcode.com/problems/lfu-cache/"]],
-  [["Design Twitter","https://leetcode.com/problems/design-twitter/"],["Insert Delete GetRandom O(1)","https://leetcode.com/problems/insert-delete-getrandom-o1/"]],
+{ title: "Greedy + Bit Manipulation + Design", days: [
+  [["Jump Game","https://leetcode.com/problems/jump-game/","M"],["Jump Game II","https://leetcode.com/problems/jump-game-ii/","M"],["Gas Station","https://leetcode.com/problems/gas-station/","M"],["Boats to Save People","https://leetcode.com/problems/boats-to-save-people/","M"],["Assign Cookies","https://leetcode.com/problems/assign-cookies/","E"]],
+  [["Partition Labels","https://leetcode.com/problems/partition-labels/","M"],["Minimum Number of Arrows to Burst Balloons","https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/","M"],["Non-overlapping Intervals","https://leetcode.com/problems/non-overlapping-intervals/","M"],["Queue Reconstruction by Height","https://leetcode.com/problems/queue-reconstruction-by-height/","M"],["Lemonade Change","https://leetcode.com/problems/lemonade-change/","E"]],
+  [["Single Number","https://leetcode.com/problems/single-number/","E"],["Single Number II","https://leetcode.com/problems/single-number-ii/","M"],["Single Number III","https://leetcode.com/problems/single-number-iii/","M"],["Reverse Bits","https://leetcode.com/problems/reverse-bits/","E"],["Hamming Distance","https://leetcode.com/problems/hamming-distance/","E"]],
+  [["Number of 1 Bits","https://leetcode.com/problems/number-of-1-bits/","E"],["Counting Bits","https://leetcode.com/problems/counting-bits/","E"],["Power of Two","https://leetcode.com/problems/power-of-two/","E"],["Power of Three","https://leetcode.com/problems/power-of-three/","E"],["Bitwise AND of Numbers Range","https://leetcode.com/problems/bitwise-and-of-numbers-range/","M"]],
+  [["Missing Number","https://leetcode.com/problems/missing-number/","E"],["Sum of Two Integers","https://leetcode.com/problems/sum-of-two-integers/","M"],["Divide Two Integers","https://leetcode.com/problems/divide-two-integers/","M"],["UTF-8 Validation","https://leetcode.com/problems/utf-8-validation/","M"],["Design Underground System","https://leetcode.com/problems/design-underground-system/","M"]],
+  [["LFU Cache","https://leetcode.com/problems/lfu-cache/","H"],["Design Twitter","https://leetcode.com/problems/design-twitter/","M"],["Insert Delete GetRandom O(1)","https://leetcode.com/problems/insert-delete-getrandom-o1/","M"],["All O\`one Data Structure","https://leetcode.com/problems/all-oone-data-structure/","H"],["Design Browser History","https://leetcode.com/problems/design-browser-history/","M"]],
 ]},
 ];
 
-// Build stable-id question objects
 const WEEKS = RAW_WEEKS.map((w, wi) => ({
   title: w.title,
   days: w.days.map((day, di) => day.map((q, qi) => ({
-    id: `w${wi}-d${di}-q${qi}`,
-    name: q[0],
-    url: q[1]
+    id: `w${wi}-d${di}-q${qi}`, name: q[0], url: q[1], diff: q[2]
   })))
 }));
 
-let state = { done: {}, flag: {}, overrides: {}, deleted: {}, added: {} };
+let state = { done: {}, flag: {}, overrides: {}, deleted: {}, added: {}, timer: {}, pos: { week: 0, day: 0 } };
 try {
-  const saved = localStorage.getItem('dsa-tracker-state-v1');
+  const saved = localStorage.getItem('dsa-tracker-state-v2');
   if (saved) state = Object.assign(state, JSON.parse(saved));
 } catch (e) { /* start fresh */ }
+if (!state.timer) state.timer = {};
+if (!state.pos) state.pos = { week: 0, day: 0 };
 
 function saveState() {
-  try { localStorage.setItem('dsa-tracker-state-v1', JSON.stringify(state)); }
+  try { localStorage.setItem('dsa-tracker-state-v2', JSON.stringify(state)); }
   catch (e) { /* storage unavailable, continue in-memory */ }
 }
 
 function effectiveQ(q) {
   const ov = state.overrides[q.id];
-  return ov ? { id: q.id, name: ov.name, url: ov.url } : q;
+  return ov ? { id: q.id, name: ov.name, url: ov.url, diff: ov.diff || q.diff } : q;
 }
-
 function dayKey(wi, di) { return `w${wi}-d${di}`; }
 
 function getDayQuestions(wi, di) {
   const base = WEEKS[wi].days[di].filter(q => !state.deleted[q.id]).map(effectiveQ);
-  const extra = (state.added[dayKey(wi, di)] || []).map(q => ({ id: q.id, name: q.name, url: q.url, custom: true }));
+  const extra = (state.added[dayKey(wi, di)] || []).map(q => ({ id: q.id, name: q.name, url: q.url, diff: q.diff || 'M', custom: true }));
   return base.concat(extra);
 }
-
 function getFlaggedForWeek(wi) {
   const items = [];
   for (let di = 0; di < 6; di++) {
-    getDayQuestions(wi, di).forEach(q => {
-      if (state.flag[q.id]) items.push(Object.assign({}, q, { _di: di }));
-    });
+    getDayQuestions(wi, di).forEach(q => { if (state.flag[q.id]) items.push(Object.assign({}, q, { _di: di })); });
   }
   return items;
 }
 
-// active day tab per week (persists only in-memory for session)
-const activeDay = {};
+function formatTime(ms) {
+  const totalSec = Math.floor(ms / 1000);
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  const pad = n => String(n).padStart(2, '0');
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
+}
+function getElapsed(id) {
+  const t = state.timer[id];
+  if (!t) return 0;
+  return t.elapsed + (t.running ? Date.now() - t.start : 0);
+}
 
-let uiEditId = null; // id currently being edited
-let uiAddOpen = {}; // dayKey -> bool, add-form open
-
-function toggleDone(id) { state.done[id] = !state.done[id]; saveState(); render(); }
+function toggleDone(id) {
+  state.done[id] = !state.done[id];
+  if (state.done[id]) {
+    const t = state.timer[id];
+    if (t && t.running) { t.elapsed += Date.now() - t.start; t.running = false; t.start = null; }
+  }
+  saveState(); render();
+}
 function toggleFlag(id) { state.flag[id] = !state.flag[id]; saveState(); render(); }
+function startTimer(id) {
+  if (!state.timer[id]) state.timer[id] = { running: false, start: null, elapsed: 0 };
+  state.timer[id].running = true; state.timer[id].start = Date.now();
+  saveState(); render();
+}
+function pauseTimer(id) {
+  const t = state.timer[id];
+  if (t && t.running) { t.elapsed += Date.now() - t.start; t.running = false; t.start = null; saveState(); render(); }
+}
+function resetTimer(id) { state.timer[id] = { running: false, start: null, elapsed: 0 }; saveState(); render(); }
+
+let uiEditId = null;
+let uiAddOpen = {};
 
 function startEdit(id) { uiEditId = id; render(); }
 function cancelEdit() { uiEditId = null; render(); }
-function saveEdit(id, name, url) {
+function saveEdit(id, name, url, diff) {
   if (!name.trim()) { cancelEdit(); return; }
-  state.overrides[id] = { name: name.trim(), url: url.trim() || '#' };
-  uiEditId = null;
-  saveState();
-  render();
+  state.overrides[id] = { name: name.trim(), url: url.trim() || '#', diff: diff };
+  uiEditId = null; saveState(); render();
 }
 function deleteQuestion(wi, di, q) {
   if (q.custom) {
     const key = dayKey(wi, di);
     state.added[key] = (state.added[key] || []).filter(x => x.id !== q.id);
-  } else {
-    state.deleted[q.id] = true;
-  }
-  saveState();
-  render();
+  } else { state.deleted[q.id] = true; }
+  saveState(); render();
 }
-function addQuestion(wi, di, name, url) {
+function addQuestion(wi, di, name, url, diff) {
   if (!name.trim()) return;
   const key = dayKey(wi, di);
   if (!state.added[key]) state.added[key] = [];
   const id = 'custom-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
-  state.added[key].push({ id, name: name.trim(), url: url.trim() || '#' });
+  state.added[key].push({ id, name: name.trim(), url: url.trim() || '#', diff: diff || 'M' });
   uiAddOpen[key] = false;
-  saveState();
-  render();
+  saveState(); render();
+}
+
+function diffBadge(diff) {
+  const span = document.createElement('span');
+  span.className = 'diff-badge ' + diff;
+  span.textContent = diff;
+  return span;
+}
+
+function timerControls(q) {
+  const t = state.timer[q.id] || { running: false, elapsed: 0 };
+  const wrap = document.createElement('div');
+  wrap.className = 'q-timer-row';
+
+  const display = document.createElement('span');
+  display.className = 'timer-display' + (t.running ? ' running' : '');
+  display.dataset.timerId = q.id;
+  display.textContent = formatTime(getElapsed(q.id));
+  wrap.appendChild(display);
+
+  if (!state.done[q.id]) {
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'timer-btn';
+    toggleBtn.textContent = t.running ? '\u23F8 Pause' : (t.elapsed > 0 ? '\u25B6 Resume' : '\u25B6 Start');
+    toggleBtn.addEventListener('click', () => t.running ? pauseTimer(q.id) : startTimer(q.id));
+    wrap.appendChild(toggleBtn);
+  }
+
+  if (t.elapsed > 0 || t.running) {
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'timer-btn reset';
+    resetBtn.textContent = '\u21BA Reset';
+    resetBtn.addEventListener('click', () => resetTimer(q.id));
+    wrap.appendChild(resetBtn);
+  }
+  return wrap;
 }
 
 function questionRow(q, wi, di, opts) {
@@ -410,73 +448,74 @@ function questionRow(q, wi, di, opts) {
   row.className = 'qrow' + (isDone ? ' done' : '') + (isFlagged ? ' flagged' : '');
 
   if (uiEditId === q.id) {
-    row.innerHTML = '';
     const form = document.createElement('div');
     form.className = 'q-edit-form';
     const nameInput = document.createElement('input');
     nameInput.type = 'text'; nameInput.value = q.name; nameInput.placeholder = 'Question name';
     const urlInput = document.createElement('input');
     urlInput.type = 'text'; urlInput.value = q.url; urlInput.placeholder = 'https://leetcode.com/problems/...';
+    const diffSelect = document.createElement('select');
+    ['E', 'M', 'H'].forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d; opt.textContent = d === 'E' ? 'Easy' : d === 'M' ? 'Medium' : 'Hard';
+      if (q.diff === d) opt.selected = true;
+      diffSelect.appendChild(opt);
+    });
     const actions = document.createElement('div');
     actions.className = 'q-edit-actions';
     const saveBtn = document.createElement('button');
     saveBtn.className = 'primary'; saveBtn.textContent = 'Save';
-    saveBtn.addEventListener('click', () => saveEdit(q.id, nameInput.value, urlInput.value));
+    saveBtn.addEventListener('click', () => saveEdit(q.id, nameInput.value, urlInput.value, diffSelect.value));
     const cancelBtn = document.createElement('button');
-    cancelBtn.textContent = 'Cancel';
-    cancelBtn.addEventListener('click', cancelEdit);
-    actions.appendChild(saveBtn);
-    actions.appendChild(cancelBtn);
-    form.appendChild(nameInput);
-    form.appendChild(urlInput);
-    form.appendChild(actions);
+    cancelBtn.textContent = 'Cancel'; cancelBtn.addEventListener('click', cancelEdit);
+    actions.appendChild(saveBtn); actions.appendChild(cancelBtn);
+    form.appendChild(nameInput); form.appendChild(urlInput); form.appendChild(diffSelect); form.appendChild(actions);
     row.appendChild(form);
     return row;
   }
+
+  const top = document.createElement('div');
+  top.className = 'qrow-top';
 
   const cb = document.createElement('input');
   cb.type = 'checkbox'; cb.className = 'q-check'; cb.checked = isDone;
   cb.setAttribute('aria-label', 'Mark done: ' + q.name);
   cb.addEventListener('change', () => toggleDone(q.id));
 
+  const badge = diffBadge(q.diff || 'M');
+
   const info = document.createElement('div');
   info.className = 'q-info';
   const nameDiv = document.createElement('div');
   nameDiv.className = 'q-name';
   const a = document.createElement('a');
-  a.href = q.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-  a.textContent = q.name;
+  a.href = q.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = q.name;
   nameDiv.appendChild(a);
   info.appendChild(nameDiv);
 
   const actions = document.createElement('div');
   actions.className = 'q-actions';
-
   const flagBtn = document.createElement('button');
   flagBtn.className = 'icon-btn' + (isFlagged ? ' on' : '');
   flagBtn.title = isFlagged ? 'Unflag from review day' : 'Flag for review day';
-  flagBtn.textContent = isFlagged ? '★' : '☆';
+  flagBtn.textContent = isFlagged ? '\u2605' : '\u2606';
   flagBtn.addEventListener('click', () => toggleFlag(q.id));
 
   const editBtn = document.createElement('button');
-  editBtn.className = 'icon-btn';
-  editBtn.title = 'Edit / replace this question';
-  editBtn.textContent = '✎';
+  editBtn.className = 'icon-btn'; editBtn.title = 'Edit / replace this question'; editBtn.textContent = '\u270E';
   editBtn.addEventListener('click', () => startEdit(q.id));
 
   const delBtn = document.createElement('button');
-  delBtn.className = 'icon-btn danger';
-  delBtn.title = 'Remove this question';
-  delBtn.textContent = '✕';
+  delBtn.className = 'icon-btn danger'; delBtn.title = 'Remove this question'; delBtn.textContent = '\u2715';
   delBtn.addEventListener('click', () => { if (confirm('Remove "' + q.name + '"?')) deleteQuestion(wi, di, q); });
 
   actions.appendChild(flagBtn);
   if (!opts.noEdit) actions.appendChild(editBtn);
   actions.appendChild(delBtn);
 
-  row.appendChild(cb);
-  row.appendChild(info);
-  row.appendChild(actions);
+  top.appendChild(cb); top.appendChild(badge); top.appendChild(info); top.appendChild(actions);
+  row.appendChild(top);
+  row.appendChild(timerControls(q));
   return row;
 }
 
@@ -484,161 +523,167 @@ function addForm(wi, di) {
   const key = dayKey(wi, di);
   const wrap = document.createElement('div');
   wrap.className = 'add-row';
-
   if (!uiAddOpen[key]) {
     const btn = document.createElement('button');
-    btn.className = 'add-btn';
-    btn.textContent = '+ Add a question';
+    btn.className = 'add-btn'; btn.textContent = '+ Add a question';
     btn.addEventListener('click', () => { uiAddOpen[key] = true; render(); });
     wrap.appendChild(btn);
     return wrap;
   }
-
   const form = document.createElement('div');
   form.className = 'q-edit-form';
   const nameInput = document.createElement('input');
   nameInput.type = 'text'; nameInput.placeholder = 'Question name';
   const urlInput = document.createElement('input');
   urlInput.type = 'text'; urlInput.placeholder = 'https://leetcode.com/problems/...';
+  const diffSelect = document.createElement('select');
+  ['E', 'M', 'H'].forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d; opt.textContent = d === 'E' ? 'Easy' : d === 'M' ? 'Medium' : 'Hard';
+    diffSelect.appendChild(opt);
+  });
+  diffSelect.value = 'M';
   const actions = document.createElement('div');
   actions.className = 'q-edit-actions';
   const saveBtn = document.createElement('button');
   saveBtn.className = 'primary'; saveBtn.textContent = 'Add';
-  saveBtn.addEventListener('click', () => addQuestion(wi, di, nameInput.value, urlInput.value));
+  saveBtn.addEventListener('click', () => addQuestion(wi, di, nameInput.value, urlInput.value, diffSelect.value));
   const cancelBtn = document.createElement('button');
-  cancelBtn.textContent = 'Cancel';
-  cancelBtn.addEventListener('click', () => { uiAddOpen[key] = false; render(); });
-  actions.appendChild(saveBtn);
-  actions.appendChild(cancelBtn);
-  form.appendChild(nameInput);
-  form.appendChild(urlInput);
-  form.appendChild(actions);
+  cancelBtn.textContent = 'Cancel'; cancelBtn.addEventListener('click', () => { uiAddOpen[key] = false; render(); });
+  actions.appendChild(saveBtn); actions.appendChild(cancelBtn);
+  form.appendChild(nameInput); form.appendChild(urlInput); form.appendChild(diffSelect); form.appendChild(actions);
   wrap.appendChild(form);
   return wrap;
 }
 
-function render() {
-  const container = document.getElementById('weeksContainer');
-  const openWeeks = new Set();
-  document.querySelectorAll('.week.open').forEach((el, idx) => openWeeks.add(el.dataset.weekIdx));
-  container.innerHTML = '';
-
-  let totalQ = 0, doneQ = 0, totalFlag = 0, weeksCleared = 0;
-
-  WEEKS.forEach((week, wi) => {
-    let weekTotal = 0, weekDone = 0;
-    for (let di = 0; di < 6; di++) {
-      getDayQuestions(wi, di).forEach(q => {
-        weekTotal++;
-        if (state.done[q.id]) weekDone++;
-      });
-    }
-    const flagged = getFlaggedForWeek(wi);
-    totalQ += weekTotal; doneQ += weekDone; totalFlag += flagged.length;
-    if (weekTotal > 0 && weekDone === weekTotal) weeksCleared++;
-
-    const weekEl = document.createElement('div');
-    weekEl.className = 'week';
-    weekEl.dataset.weekIdx = wi;
-    if (openWeeks.has(String(wi))) weekEl.classList.add('open');
-
-    const ringPct = weekTotal ? weekDone / weekTotal : 0;
-    const r = 12, circ = 2 * Math.PI * r;
-    const dashOffset = circ * (1 - ringPct);
-
-    const head = document.createElement('div');
-    head.className = 'week-head';
-    head.setAttribute('role', 'button'); head.setAttribute('tabindex', '0');
-    head.innerHTML = `
-      <div class="week-num">Wk ${String(wi + 1).padStart(2, '0')}</div>
-      <div class="week-title-wrap">
-        <div class="week-title">${week.title}</div>
-        <div class="week-meta"><span>${weekDone}/${weekTotal} solved</span>${flagged.length ? `<span class="flag-pill">★ ${flagged.length} flagged</span>` : ''}</div>
-      </div>
-      <div class="week-ring">
-        <svg width="30" height="30" viewBox="0 0 30 30">
-          <circle class="bg" cx="15" cy="15" r="${r}" fill="none" stroke-width="3"></circle>
-          <circle class="fg" cx="15" cy="15" r="${r}" fill="none" stroke-width="3" stroke-dasharray="${circ}" stroke-dashoffset="${dashOffset}" stroke-linecap="round"></circle>
-        </svg>
-      </div>
-      <div class="week-chevron">&#8250;</div>
-    `;
-    head.addEventListener('click', () => { weekEl.classList.toggle('open'); });
-    head.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); head.click(); } });
-
-    const body = document.createElement('div');
-    body.className = 'week-body';
-
-    if (activeDay[wi] === undefined) activeDay[wi] = 0;
-
-    const tabs = document.createElement('div');
-    tabs.className = 'day-tabs';
-    for (let di = 0; di < 6; di++) {
-      const t = document.createElement('button');
-      const qs = getDayQuestions(wi, di);
-      const allDone = qs.length > 0 && qs.every(q => state.done[q.id]);
-      t.className = 'day-tab' + (activeDay[wi] === di ? ' active' : '');
-      t.innerHTML = DAY_LABELS[di] + (allDone ? '<span class="dot"></span>' : '');
-      t.addEventListener('click', () => { activeDay[wi] = di; render(); });
-      tabs.appendChild(t);
-    }
-    const reviewTab = document.createElement('button');
-    reviewTab.className = 'day-tab review' + (activeDay[wi] === 6 ? ' active' : '');
-    reviewTab.textContent = 'Review';
-    reviewTab.addEventListener('click', () => { activeDay[wi] = 6; render(); });
-    tabs.appendChild(reviewTab);
-    body.appendChild(tabs);
-
-    const panel = document.createElement('div');
-    panel.className = 'day-panel';
-
-    if (activeDay[wi] === 6) {
-      if (flagged.length === 0) {
-        const empty = document.createElement('div');
-        empty.className = 'review-empty';
-        empty.textContent = "Nothing flagged this week yet. Star a question on any day (☆) and it'll show up here to revisit.";
-        panel.appendChild(empty);
-      } else {
-        const note = document.createElement('div');
-        note.className = 'review-note';
-        note.textContent = 'Flagged from this week — clear these before moving on.';
-        panel.appendChild(note);
-        flagged.forEach(q => {
-          panel.appendChild(questionRow(q, wi, q._di, { noEdit: true }));
-        });
-      }
-    } else {
-      const qs = getDayQuestions(wi, activeDay[wi]);
-      qs.forEach(q => panel.appendChild(questionRow(q, wi, activeDay[wi])));
-      panel.appendChild(addForm(wi, activeDay[wi]));
-    }
-
-    body.appendChild(panel);
-    weekEl.appendChild(head);
-    weekEl.appendChild(body);
-    container.appendChild(weekEl);
-  });
-
-  document.getElementById('statDone').textContent = `${doneQ} / ${totalQ}`;
-  document.getElementById('statFlag').textContent = totalFlag;
-  document.getElementById('statWeeks').textContent = `${weeksCleared} / ${WEEKS.length}`;
-  const pct = totalQ ? Math.round((doneQ / totalQ) * 100) : 0;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressCaption').textContent = pct + '% complete';
+function clampPos() {
+  if (state.pos.week < 0) state.pos.week = 0;
+  if (state.pos.week > WEEKS.length - 1) state.pos.week = WEEKS.length - 1;
+  if (state.pos.day < 0) state.pos.day = 0;
+  if (state.pos.day > 6) state.pos.day = 6;
 }
 
+function goPrev() {
+  clampPos();
+  if (state.pos.day === 0) {
+    if (state.pos.week > 0) { state.pos.week--; state.pos.day = 6; }
+  } else { state.pos.day--; }
+  saveState(); render();
+}
+function goNext() {
+  clampPos();
+  if (state.pos.day === 6) {
+    if (state.pos.week < WEEKS.length - 1) { state.pos.week++; state.pos.day = 0; }
+  } else { state.pos.day++; }
+  saveState(); render();
+}
+
+function renderNav() {
+  document.getElementById('navWeekLabel').textContent = `Week ${state.pos.week + 1} of ${WEEKS.length} \u2014 ${WEEKS[state.pos.week].title}`;
+  document.getElementById('navDayLabel').textContent = DAY_LABELS[state.pos.day];
+  document.getElementById('prevBtn').disabled = (state.pos.week === 0 && state.pos.day === 0);
+  document.getElementById('nextBtn').disabled = (state.pos.week === WEEKS.length - 1 && state.pos.day === 6);
+
+  const jw = document.getElementById('jumpWeek');
+  if (jw.options.length !== WEEKS.length) {
+    jw.innerHTML = '';
+    WEEKS.forEach((w, i) => {
+      const opt = document.createElement('option');
+      opt.value = i; opt.textContent = `Week ${i + 1}`;
+      jw.appendChild(opt);
+    });
+  }
+  jw.value = state.pos.week;
+
+  const jd = document.getElementById('jumpDay');
+  if (jd.options.length !== 7) {
+    jd.innerHTML = '';
+    DAY_LABELS.forEach((l, i) => {
+      const opt = document.createElement('option');
+      opt.value = i; opt.textContent = l;
+      jd.appendChild(opt);
+    });
+  }
+  jd.value = state.pos.day;
+}
+
+function render() {
+  clampPos();
+  renderNav();
+
+  const { week: wi, day: di } = state.pos;
+  const card = document.getElementById('dayCard');
+  card.innerHTML = '';
+
+  const head = document.createElement('div');
+  head.className = 'day-card-head';
+  const titleDiv = document.createElement('div');
+  const flagged = getFlaggedForWeek(wi);
+
+  if (di === 6) {
+    titleDiv.innerHTML = `<div class="day-card-title">Review Day</div><div class="day-card-sub">Everything flagged this week</div>`;
+    head.appendChild(titleDiv);
+    card.appendChild(head);
+    if (flagged.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'review-empty';
+      empty.textContent = "Nothing flagged this week yet. Star a question on any day (\u2606) and it'll show up here to revisit.";
+      card.appendChild(empty);
+    } else {
+      flagged.forEach(q => card.appendChild(questionRow(q, wi, q._di, { noEdit: true })));
+    }
+  } else {
+    const qs = getDayQuestions(wi, di);
+    const solved = qs.filter(q => state.done[q.id]).length;
+    titleDiv.innerHTML = `<div class="day-card-title">${DAY_LABELS[di]}</div><div class="day-card-sub">${solved}/${qs.length} solved${flagged.length ? ` \u00b7 \u2605 ${flagged.length} flagged this week` : ''}</div>`;
+    head.appendChild(titleDiv);
+    card.appendChild(head);
+    qs.forEach(q => card.appendChild(questionRow(q, wi, di)));
+    card.appendChild(addForm(wi, di));
+  }
+
+  // overall stats across everything
+  let totalQ = 0, doneQ = 0, totalFlag = 0, totalMs = 0;
+  WEEKS.forEach((week, w2) => {
+    for (let d2 = 0; d2 < 6; d2++) {
+      getDayQuestions(w2, d2).forEach(q => {
+        totalQ++;
+        if (state.done[q.id]) doneQ++;
+        if (state.flag[q.id]) totalFlag++;
+        totalMs += getElapsed(q.id);
+      });
+    }
+  });
+  document.getElementById('statDone').textContent = `${doneQ} / ${totalQ}`;
+  document.getElementById('statFlag').textContent = totalFlag;
+  const hrs = totalMs / 3600000;
+  document.getElementById('statTime').textContent = hrs >= 1 ? hrs.toFixed(1) + 'h' : Math.round(totalMs / 60000) + 'm';
+  const pct = totalQ ? Math.round((doneQ / totalQ) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCaption').textContent = pct + '% complete overall';
+}
+
+// Live tick for running timers (updates text only, no full re-render)
+setInterval(() => {
+  document.querySelectorAll('.timer-display[data-timer-id]').forEach(el => {
+    const id = el.dataset.timerId;
+    const t = state.timer[id];
+    if (t && t.running) el.textContent = formatTime(getElapsed(id));
+  });
+}, 1000);
+
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('jumpWeek').addEventListener('change', (e) => { state.pos.week = parseInt(e.target.value); saveState(); render(); });
+document.getElementById('jumpDay').addEventListener('change', (e) => { state.pos.day = parseInt(e.target.value); saveState(); render(); });
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if (confirm('Reset all progress, flags, and edits on this device? This cannot be undone.')) {
-    state = { done: {}, flag: {}, overrides: {}, deleted: {}, added: {} };
-    saveState();
-    render();
+  if (confirm('Reset all progress, timers, flags, and edits on this device? This cannot be undone.')) {
+    state = { done: {}, flag: {}, overrides: {}, deleted: {}, added: {}, timer: {}, pos: { week: 0, day: 0 } };
+    saveState(); render();
   }
 });
 
 render();
-// Open week 1 by default
-const firstWeek = document.querySelector('.week');
-if (firstWeek && !firstWeek.classList.contains('open')) firstWeek.classList.add('open');
 </script>
 </body>
 </html>
